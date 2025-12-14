@@ -185,6 +185,18 @@ h2 {
   display: inline-block;
   position: relative;
   z-index: 1;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.section a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.section a:hover {
+  opacity: 0.8;
 }
 
 .github-link {
