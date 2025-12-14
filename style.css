@@ -222,3 +222,56 @@ h2 {
 .social-icons a:hover .devicon-instagram-plain {
   color: #e1306c; /* Instagram pink */
 }
+/* Glass Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.social-icons a,
+.social-icons a:visited,
+.social-icons a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+.social-icons a {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.social-icons i {
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+/* Hover animation */
+.social-icons a:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Brand hover accents (subtle) */
+.social-icons a:hover .devicon-github-original {
+  color: #d1d1d1;
+}
+
+.social-icons a:hover .devicon-instagram-plain {
+  color: #e1306c;
+}
