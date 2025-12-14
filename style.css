@@ -177,3 +177,24 @@ h2 {
   position: relative;
   z-index: 1;
 }
+.github-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.github-link i {
+  font-size: 1.2rem;
+  color: #ffffff; /* or #000 for light theme */
+}
+
+.github-link a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.github-link a:hover {
+  text-decoration: underline;
+}
