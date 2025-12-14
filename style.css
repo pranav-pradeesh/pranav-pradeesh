@@ -167,3 +167,13 @@ h2 {
   font-size: 14px;
   color: var(--muted);
 }
+.contact-item {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.contact-item a {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
