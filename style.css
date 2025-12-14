@@ -275,3 +275,14 @@ h2 {
 .social-icons a:hover .devicon-instagram-plain {
   color: #e1306c;
 }
+/* Global link color override */
+a,
+a:visited,
+a:hover,
+a:active {
+  color: #ffffff;
+  text-decoration: none;
+}
+a:hover {
+  opacity: 0.85;
+}
