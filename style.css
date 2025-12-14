@@ -1,0 +1,169 @@
+:root {
+  --bg: #0b0f14;
+  --card: #131a22;
+  --accent: #00f7ff;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ================= HERO ================= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,247,255,0.15), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0,247,255,0.1), transparent 40%);
+  animation: floatBg 12s infinite alternate;
+}
+
+@keyframes floatBg {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+
+.profile {
+  width: 140px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  z-index: 1;
+}
+
+h1, p {
+  z-index: 1;
+}
+
+/* ================= SECTIONS ================= */
+.section {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+}
+
+h2 {
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+/* ================= PROJECTS ================= */
+.projects {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.project-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+}
+
+/* STACK ON HOVER */
+.stack {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: .3s;
+}
+
+.project-card:hover .stack {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stack i {
+  font-size: 28px;
+  color: var(--accent);
+}
+
+/* ================= ANIMATIONS ================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-up {
+  animation: slideUp 1s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: .3s;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* ================= TECH STACK ================= */
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.tech {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 20px 10px;
+  text-align: center;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.tech:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(0,0,0,.35);
+}
+
+.tech i {
+  font-size: 36px;
+  color: var(--accent);
+}
+
+.tech span {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
