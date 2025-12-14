@@ -198,3 +198,27 @@ h2 {
 .github-link a:hover {
   text-decoration: underline;
 }
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.social-icons a {
+  font-size: 1.5rem;
+  color: #ffffff;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.15);
+}
+
+.social-icons a:hover .devicon-github-original {
+  color: #6e5494; /* GitHub purple */
+}
+
+.social-icons a:hover .devicon-instagram-plain {
+  color: #e1306c; /* Instagram pink */
+}
