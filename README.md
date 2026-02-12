@@ -78,8 +78,6 @@ I enjoy learning by building real systems — from safety-focused IoT solutions 
 
 - IoT systems with Arduino & sensors  
 - Web development & modern tooling  
-- Blockchain & cryptography fundamentals  
-- Ethical hacking & bug bounty basics  
 - DevOps concepts (CI/CD, deployment mindset)
 
 ---
