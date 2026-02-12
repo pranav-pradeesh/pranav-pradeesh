@@ -18,9 +18,9 @@ Building real-world projects with curiosity, discipline, and clean code.
 
 ## 🧠 About Me
 
-I’m **Pranav Pradeesh**, a higher secondary student from India with hands-on experience in building practical projects across **IoT systems, web development, blockchain fundamentals, and game development**.
+I’m **Pranav Pradeesh**, a higher secondary student from India with hands-on experience in building practical projects across **IoT systems and web development**.
 
-I enjoy learning by building real systems — from safety-focused IoT solutions to experimental cryptocurrencies and educational platforms. I’m self-driven, adaptable, and motivated to grow through real-world collaboration and internships.
+I enjoy learning by building real systems — from safety-focused IoT solutions and educational platforms. I’m self-driven, adaptable, and motivated to grow through real-world collaboration and internships.
 
 ---
 
@@ -29,7 +29,7 @@ I enjoy learning by building real systems — from safety-focused IoT solutions 
 <div align="center">
 
 ### 💻 Languages & Core Tech
-<img src="https://skillicons.dev/icons?i=c,cpp,python,html,css,js" />
+<img src="https://skillicons.dev/icons?i=cpp,python,html,css,js" />
 
 ### 🌐 Web & Tools
 <img src="https://skillicons.dev/icons?i=react,vite,nodejs,git,github,linux" />
@@ -37,8 +37,6 @@ I enjoy learning by building real systems — from safety-focused IoT solutions 
 ### 🔧 Other Technologies
 <img src="https://skillicons.dev/icons?i=arduino,godot" />
 <br/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bitcoin/bitcoin-original.svg" width="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ethereum/ethereum-original.svg" width="40" />
 
 </div>
 
@@ -61,15 +59,6 @@ I enjoy learning by building real systems — from safety-focused IoT solutions 
 - Clean structure and accessibility  
 
 🔗 https://github.com/pranav-pradeesh/nmhss-project
-
----
-
-### 🪙 NewCoin  
-**Privacy-first cryptocurrency model**  
-- Blockchain fundamentals  
-- ASIC-resistant concept inspired by Bitcoin & Monero  
-
-🔗 https://github.com/pranav-pradeesh/Newcoin
 
 ---
 
