@@ -108,7 +108,7 @@ I’m eager to learn, contribute, and grow in a professional environment.
 
 ## 📬 Contact Me
 
-- 📧 **Email:** achupradeesh1984@gmail.com  
+- 📧 **Email:** pranavpradeesh09@gmail.com  
 - 📞 **Phone:** +91 8848866921  
 - 🔗 **GitHub:** https://github.com/pranav-pradeesh  
 
