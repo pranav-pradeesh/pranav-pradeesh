@@ -52,13 +52,6 @@ A website I built for a real business. Focused on making it look professional an
 
 ---
 
-### 📦 Scraper API *(in progress)*
-A backend service for scraping websites and storing files to Cloudflare R2. Uses Playwright for the browser scraping part, Docker for deployment, and MongoDB to track files. Probably the most complex thing I've built so far.
-
-🔗 [GitHub](https://github.com/Inevitable200tech/scrap-project-1)
-
----
-
 ### 🛑 Gas Guard
 An IoT project — Arduino with gas sensors that triggers an alert when it detects a gas leak. Built it as a practical safety tool.
 
