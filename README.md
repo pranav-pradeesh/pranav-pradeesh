@@ -83,7 +83,3 @@ Internships in web development, IoT, or backend work. I'm not going to pretend I
 📧 [pranavpradeesh09@gmail.com](mailto:pranavpradeesh09@gmail.com)
 
 ---
-
-<div align="center">
-<img src="https://komarev.com/ghpvc/?username=pranav-pradeesh&color=58A6FF&style=flat-square" />
-</div>
