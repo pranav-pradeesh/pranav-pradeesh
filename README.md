@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=700&lines=Hey%2C+I'm+Pranav+%F0%9F%91%8B;+Student+from+Kerala%2C+India;I+build+stuff+to+learn+how+things+work" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=700&lines=Hey%2C+I'm+Pranav+%F0%9F%91%8B;+2+Student+from+Kerala%2C+India;I+build+stuff+to+learn+how+things+work" alt="Typing SVG" />
 
 <br/>
 
@@ -15,7 +15,7 @@
 
 I'm a +2 student from Kerala finishing school this year. I got into coding a couple of years ago and since then I've been building projects across IoT, web, and backend — mostly by figuring things out as I go.
 
-Most of my projects started because I wanted to understand how something works. Some are finished, some are still being figured out. I'm looking for an internship where I can actually contribute and learn properly from people who've been doing this longer than me.
+Most of my projects started because I wanted to understand how something works. I build mostly through vibe coding — using AI tools to move fast, figure things out, and ship things I couldn't have built alone yet. Some are finished, some are still being figured out. I'm looking for an internship where I can actually contribute and learn properly from people who've been doing this longer than me.
 
 ---
 
