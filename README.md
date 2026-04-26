@@ -13,7 +13,7 @@
 
 ## About Me
 
-I'm a +2 student from Kerala finishing school this year. I got into coding a couple of years ago and since then I've been building projects across IoT, web, and backend — mostly by figuring things out as I go.
+Student from Kerala. I got into coding at the age of 12 and since then I've been building projects across IoT, web, and backend — mostly by figuring things out as I go.
 
 Most of my projects started because I wanted to understand how something works. I build mostly through vibe coding — using AI tools to move fast, figure things out, and ship things I couldn't have built alone yet. Some are finished, some are still being figured out. I'm looking for an internship where I can actually contribute and learn properly from people who've been doing this longer than me.
 
