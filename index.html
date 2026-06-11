@@ -1,194 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pranav Pradeesh | Portfolio</title>
-  
-  <!-- SEO -->
-  <meta name="description" content="Pranav Pradeesh – Student developer working on IoT, AI, Blockchain, and Game Development.">
-  <meta name="keywords" content="Pranav Pradeesh, Portfolio, Arduino, Blockchain, AI, Student Developer">
-  <meta name="author" content="Pranav Pradeesh">
-  <meta name="robots" content="index, follow">
-  <meta name="google-site-verification" content="FAaQJjQZah8SX_nZ4v3Z0Iut0vWAFaHAPaYyAk6-BAk">
-  
-  <!-- Favicon -->
-  <link rel="icon" href="https://avatars.githubusercontent.com/pranav-pradeesh">
-  
-  <!-- Preconnect for performance -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://avatars.githubusercontent.com">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pranav Pradeesh — Developer Portfolio</title>
+  <meta name="description" content="Pranav Pradeesh — student developer from Kerala, India. Building across web, IoT, and backend since age 12." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs"
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- ================= HERO ================= -->
-  <header class="hero">
-    <div class="hero-bg" aria-hidden="true"></div>
+  <!-- ============ LOADER ============ -->
+  <div class="loader" id="loader">
+    <div class="loader__inner">
+      <span class="loader__label">INITIALIZING PARTICLE FIELD</span>
+      <div class="loader__bar"><div class="loader__fill" id="loaderFill"></div></div>
+      <span class="loader__pct" id="loaderPct">0%</span>
+    </div>
+  </div>
 
-    <img 
-      src="https://avatars.githubusercontent.com/pranav-pradeesh" 
-      class="profile" 
-      alt="Pranav Pradeesh - Student Developer"
-      width="140" 
-      height="140"
-      loading="eager">
+  <!-- ============ WEBGL CANVAS ============ -->
+  <canvas id="scene"></canvas>
 
-    <h1 class="slide-up">Pranav Pradeesh</h1>
-    <p class="slide-up delay-1">Student Developer • IoT • AI • Blockchain</p>
-    
-    <div class="slide-up delay-1 social-icons">
-      <a href="https://github.com/pranav-pradeesh" 
-         target="_blank" 
-         rel="noopener noreferrer" 
-         aria-label="Visit my GitHub profile">
-        <i class="devicon-github-original" aria-hidden="true"></i>
-      </a>
+  <!-- ============ GRAIN OVERLAY ============ -->
+  <div class="grain" aria-hidden="true"></div>
 
-      <a href="https://www.instagram.com/tech_by_pranav/#" 
-         target="_blank" 
-         rel="noopener noreferrer" 
-         aria-label="Visit my Instagram profile">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-        </svg>
-      </a>
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ============ CUSTOM CURSOR ============ -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- ============ FIXED CHROME ============ -->
+  <header class="chrome">
+    <a class="chrome__logo" href="#hero">PP<span class="accent">.</span></a>
+    <nav class="chrome__nav">
+      <a href="#about" data-magnetic>About</a>
+      <a href="#projects" data-magnetic>Projects</a>
+      <a href="#skills" data-magnetic>Skills</a>
+      <a href="#contact" data-magnetic>Contact</a>
+    </nav>
+    <div class="chrome__status">
+      <span class="pulse-dot"></span>
+      <span>OPEN TO INTERNSHIPS</span>
     </div>
   </header>
 
-  <!-- ================= ABOUT ================= -->
-  <section class="section reveal">
-    <h2>About Me</h2>
-    <p>
-      I'm <strong>Pranav Pradeesh</strong>, a higher secondary student from India seeking an internship opportunity in <strong>software development</strong>. I have hands-on experience building practical projects in <strong>IoT systems</strong> and <strong>web development</strong>, with a strong interest in learning through real-world applications.
-    </p>
-    <p>
-      I've worked with technologies such as Arduino, JavaScript, HTML, CSS, Git, and Node.js, and I'm familiar with modern development workflows. I enjoy problem-solving, writing clean code, and quickly adapting to new tools and technologies.
-    </p>
-    <p>
-      I'm highly motivated, self-driven, and eager to contribute to a team environment while gaining industry-level experience and mentorship.
-    </p>
-  </section>
+  <div class="section-indicator" id="sectionIndicator">
+    <span class="section-indicator__num" id="indicatorNum">01</span>
+    <span class="section-indicator__line"></span>
+    <span class="section-indicator__total">05</span>
+  </div>
 
-  <!-- ================= TECH STACK ================= -->
-  <section class="section reveal">
-    <h2>Tech Stack</h2>
+  <!-- ============ CONTENT ============ -->
+  <main>
 
-    <div class="tech-grid">
-      <div class="tech">
-        <i class="devicon-arduino-plain" aria-hidden="true"></i>
-        <span>Arduino</span>
+    <!-- 01 / HERO -->
+    <section class="panel panel--hero" id="hero" data-shape="0">
+      <p class="kicker reveal">PRANAV PRADEESH — KERALA, INDIA — CODING SINCE AGE 12</p>
+      <h1 class="hero-title">
+        <span class="hero-title__line reveal">BUILD<span class="accent">.</span></span>
+        <span class="hero-title__line hero-title__line--accent reveal">BREAK<span class="accent">.</span></span>
+        <span class="hero-title__line reveal">LEARN<span class="accent">.</span></span>
+      </h1>
+      <p class="hero-sub reveal">Student developer — Web · IoT · Backend — I build stuff to learn how things work</p>
+      <div class="scroll-hint reveal">
+        <span>SCROLL</span>
+        <div class="scroll-hint__track"><div class="scroll-hint__thumb"></div></div>
       </div>
+    </section>
 
-      <div class="tech">
-        <i class="devicon-cplusplus-plain" aria-hidden="true"></i>
-        <span>C / C++</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-python-plain" aria-hidden="true"></i>
-        <span>Python</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-html5-plain" aria-hidden="true"></i>
-        <span>HTML</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-css3-plain" aria-hidden="true"></i>
-        <span>CSS</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-javascript-plain" aria-hidden="true"></i>
-        <span>JavaScript</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-react-original" aria-hidden="true"></i>
-        <span>React</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-vitejs-plain" aria-hidden="true"></i>
-        <span>Vite</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-nodejs-plain" aria-hidden="true"></i>
-        <span>Node.js</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-git-plain" aria-hidden="true"></i>
-        <span>Git</span>
-      </div>
-
-      <div class="tech">
-        <i class="devicon-godot-plain" aria-hidden="true"></i>
-        <span>Godot</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PROJECTS ================= -->
-  <section class="section reveal">
-    <h2>Projects</h2>
-
-    <div class="projects">
-      <a href="https://github.com/pranav-pradeesh/GAS-GUARD" 
-         target="_blank" 
-         rel="noopener noreferrer" 
-         class="project-card"
-         aria-label="View Gas Guard project on GitHub">
-        <h3>Gas Guard</h3>
-        <p>IoT-based gas leakage detection system.</p>
-
-        <div class="stack" aria-label="Technologies used">
-          <i class="devicon-arduino-plain" aria-hidden="true"></i>
-          <i class="devicon-cplusplus-plain" aria-hidden="true"></i>
+    <!-- 02 / ABOUT -->
+    <section class="panel" id="about" data-shape="1">
+      <div class="panel__grid">
+        <div class="panel__head">
+          <span class="panel__index">02</span>
+          <h2 class="panel__title reveal">LEARN<br /><span class="accent">BY</span><br />BUILDING</h2>
         </div>
-      </a>
-
-      <a href="https://nmhss-thirunnavaya.onrender.com" 
-         target="_blank" 
-         rel="noopener noreferrer" 
-         class="project-card"
-         aria-label="Visit NMHSS School Website">
-        <h3>NMHSS School Website</h3>
-        <p>Official school website project.</p>
-
-        <div class="stack" aria-label="Technologies used">
-          <i class="devicon-html5-plain" aria-hidden="true"></i>
-          <i class="devicon-css3-plain" aria-hidden="true"></i>
-          <i class="devicon-javascript-plain" aria-hidden="true"></i>
+        <div class="panel__body">
+          <p class="lede reveal">Student from Kerala. Got into coding at 12 and never stopped — IoT, web, and backend, mostly figured out as I go.</p>
+          <p class="reveal">Most of my projects started because I wanted to understand how something works. I build fast with AI tools — shipping things I couldn't have built alone yet, then digging in to understand why they work. Some projects are finished, some are still being figured out.</p>
+          <p class="reveal">Right now I'm looking for an internship where I can actually contribute and learn from people who've been doing this longer than me.</p>
+          <div class="stat-row reveal">
+            <div class="stat"><span class="stat__num" data-count="12">0</span><span class="stat__label">AGE I STARTED</span></div>
+            <div class="stat"><span class="stat__num" data-count="4">0</span><span class="stat__label">PROJECTS SHIPPED</span></div>
+            <div class="stat"><span class="stat__num" data-count="∞">∞</span><span class="stat__label">CURIOSITY</span></div>
+          </div>
         </div>
-      </a>
-    </div>
-  </section>
+      </div>
+    </section>
 
-  <!-- ================= CONTACT ================= -->
-  <section class="section reveal">
-    <h2>Contact</h2>
-    <p>
-      <a href="mailto:pranavpradeesh09@gmail.com" aria-label="Send me an email">
-        📧 pranavpradeesh09@gmail.com
-      </a>
-    </p>
-    <p>
-      <a href="tel:+918848866921" aria-label="Call me">
-        📞 +91 8848866921
-      </a>
-    </p>
-  </section>
+    <!-- 03 / PROJECTS -->
+    <section class="panel" id="projects" data-shape="2">
+      <div class="panel__head panel__head--wide">
+        <span class="panel__index">03</span>
+        <h2 class="panel__title reveal">SELECTED<br /><span class="accent">WORK</span></h2>
+      </div>
+      <div class="projects">
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener">
+          <span class="project__tag">EDTECH</span>
+          <h3 class="project__name">ExamForge</h3>
+          <p class="project__desc">Online exam and quiz platform. Teachers create exams, students take them, results come out automatically — built to replace a real workflow.</p>
+          <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
+          <span class="project__num">P—01</span>
+        </a>
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/GAS-GUARD" target="_blank" rel="noopener">
+          <span class="project__tag">IOT</span>
+          <h3 class="project__name">Gas Guard</h3>
+          <p class="project__desc">Arduino with gas sensors that triggers an alert when it detects a leak. A practical safety tool, not a demo.</p>
+          <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
+          <span class="project__num">P—02</span>
+        </a>
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/nmhss-project" target="_blank" rel="noopener">
+          <span class="project__tag">LIVE IN PRODUCTION</span>
+          <h3 class="project__name">NMHSS Thirunavaya</h3>
+          <p class="project__desc">The official website for my school. Actually live and actually being used — my first real users.</p>
+          <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
+          <span class="project__num">P—03</span>
+        </a>
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/Orvaya" target="_blank" rel="noopener">
+          <span class="project__tag">CLIENT WORK</span>
+          <h3 class="project__name">Orvaya</h3>
+          <p class="project__desc">Website built for a real business. Professional look, works properly on every screen size.</p>
+          <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
+          <span class="project__num">P—04</span>
+        </a>
+      </div>
+    </section>
 
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
+    <!-- 04 / SKILLS -->
+    <section class="panel" id="skills" data-shape="3">
+      <div class="panel__grid">
+        <div class="panel__head">
+          <span class="panel__index">04</span>
+          <h2 class="panel__title reveal">TOOL<br /><span class="accent">CHAIN</span></h2>
+        </div>
+        <div class="panel__body">
+          <div class="skill-group reveal">
+            <h4>LANGUAGES</h4>
+            <ul><li>C++</li><li>Python</li><li>JavaScript</li><li>TypeScript</li><li>HTML / CSS</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h4>WEB</h4>
+            <ul><li>React</li><li>Node.js</li><li>MongoDB</li><li>Three.js</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h4>IOT / SYSTEMS</h4>
+            <ul><li>Arduino</li><li>Sensors &amp; Actuators</li><li>Linux</li><li>Git</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h4>HOW I WORK</h4>
+            <ul><li>AI-assisted development</li><li>Rapid prototyping</li><li>Shipping &gt; perfect</li><li>Reading docs at 2am</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / CONTACT -->
+    <section class="panel panel--contact" id="contact" data-shape="4">
+      <span class="panel__index">05</span>
+      <h2 class="contact-title reveal">LET'S BUILD<br />SOMETHING <span class="accent">REAL</span></h2>
+      <div class="contact-actions reveal">
+        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com" data-magnetic>
+          pranavpradeesh09@gmail.com
+          <span class="contact-link__arrow">→</span>
+        </a>
+        <a class="contact-ghost" href="https://github.com/pranav-pradeesh" target="_blank" rel="noopener" data-magnetic>
+          github.com/pranav-pradeesh
+        </a>
+      </div>
+      <footer class="footer reveal">
+        <span>© 2026 PRANAV PRADEESH · KERALA, INDIA</span>
+        <span>SMOOTH BY LENIS · PARTICLES BY THREE.JS</span>
+      </footer>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
