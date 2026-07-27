@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="preload" as="image" href="assets/portrait.jpg" />
   <script type="importmap">
     {
       "imports": {
@@ -57,6 +58,11 @@
       <span>OPEN TO INTERNSHIPS</span>
     </div>
   </header>
+
+  <!-- ============ PORTRAIT CAPTION (fades in once the face resolves) ============ -->
+  <p class="portrait-note" id="portraitNote" aria-hidden="true">
+    <span class="accent">◆</span> THE FIELD IS A PORTRAIT
+  </p>
 
   <div class="section-indicator" id="sectionIndicator">
     <span class="section-indicator__num" id="indicatorNum">01</span>
@@ -181,9 +187,13 @@
           github.com/pranav-pradeesh
         </a>
       </div>
-      <footer class="footer reveal">
+    </section>
+
+    <!-- FINALE / the assembled portrait stands alone here -->
+    <section class="finale">
+      <footer class="footer">
         <span>© 2026 PRANAV PRADEESH · KERALA, INDIA</span>
-        <span>SMOOTH BY LENIS · PARTICLES BY THREE.JS</span>
+        <span>SMOOTH BY LENIS · PORTRAIT BY THREE.JS</span>
       </footer>
     </section>
 

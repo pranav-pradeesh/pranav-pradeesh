@@ -183,6 +183,23 @@ body {
   50% { box-shadow: 0 0 0 8px rgba(200, 255, 0, 0); }
 }
 
+/* ============ PORTRAIT CAPTION ============ */
+.portrait-note {
+  position: fixed;
+  top: 92px;
+  left: 50%;
+  transform: translate(-50%, -8px);
+  z-index: 100;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--bone-dim);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.portrait-note.visible { opacity: 1; transform: translate(-50%, 0); }
+
 /* ============ SECTION INDICATOR ============ */
 .section-indicator {
   position: fixed;
@@ -404,6 +421,15 @@ main { position: relative; z-index: 10; }
   text-align: center;
   justify-content: center;
 }
+
+/* Empty by design: the morph completes as this scrolls into view, so the
+   finished portrait holds one clear frame with nothing in front of it. */
+.finale {
+  position: relative;
+  min-height: 108vh;
+  pointer-events: none;
+}
+.finale .footer { pointer-events: auto; }
 .contact-title {
   font-family: var(--font-display);
   font-weight: 800;
@@ -481,6 +507,8 @@ main { position: relative; z-index: 10; }
   .panel { padding: 120px 6vw 90px; }
   .panel__grid { grid-template-columns: 1fr; gap: 36px; }
   .scroll-hint { left: 6vw; }
+  .portrait-note { top: 68px; font-size: 0.52rem; letter-spacing: 0.3em; }
+  .finale { min-height: 100vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {

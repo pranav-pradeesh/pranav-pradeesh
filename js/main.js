@@ -1,8 +1,10 @@
 /* ============================================================
    OBSIDIAN OBSERVATORY — particle morph engine
-   15,000 particles · 5 procedural shapes · GPU morphing
-   galaxy → neural core → torus knot → data grid → helix
+   18,000 particles · 4 procedural shapes · GPU morphing
+   galaxy → neural core → torus knot → data grid → the portrait
    Scroll: Lenis — velocity feeds the shader, bloom, and camera
+   The last morph resolves the whole field into a photograph;
+   the helix stands in if the image can't be sampled.
    ============================================================ */
 
 import * as THREE from 'three';
@@ -10,9 +12,13 @@ import Lenis from 'lenis';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { samplePortrait } from './portrait.js';
 
-const COUNT = window.matchMedia('(max-width: 860px)').matches ? 7000 : 15000;
+const COUNT = window.matchMedia('(max-width: 860px)').matches ? 9000 : 18000;
 const SHAPES = 5;
+const PORTRAIT_SRC = 'assets/portrait.jpg';
+const PORTRAIT_HEIGHT = 10.0;  // world units, subject bounds
+const SCROLL_HOLD = 0.8;       // portrait completes as the finale scrolls in, then holds
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- shape generators (each returns Float32Array COUNT*3) ---------- */
@@ -133,12 +139,22 @@ const rand = new Float32Array(COUNT);
 for (let i = 0; i < COUNT; i++) rand[i] = Math.random();
 geometry.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
 
+/* Portrait buffers are allocated up front and filled once the image
+   has been sampled — the shader only reads them when uHasPortrait flips. */
+const portraitPos = new Float32Array(COUNT * 3);
+const portraitLum = new Float32Array(COUNT);
+geometry.setAttribute('aPortrait', new THREE.BufferAttribute(portraitPos, 3));
+geometry.setAttribute('aPortraitLum', new THREE.BufferAttribute(portraitLum, 1));
+
 /* ---------- shader ---------- */
 
 const uniforms = {
   uTime: { value: 0 },
   uMorph: { value: 0 },
   uVel: { value: 0 },                               // scroll velocity from Lenis
+  uSpin: { value: 0 },                              // global yaw, unwinds for the portrait
+  uPortrait: { value: 0 },                          // 0..1 — how resolved the portrait is
+  uHasPortrait: { value: 0 },                       // 1 once the image has been sampled
   uSize: { value: renderer.getPixelRatio() * 2.2 },
   uColorA: { value: new THREE.Color('#c8ff00') },   // acid
   uColorB: { value: new THREE.Color('#3a5a40') },   // deep moss
@@ -156,47 +172,67 @@ const material = new THREE.ShaderMaterial({
     attribute vec3 aShape2;
     attribute vec3 aShape3;
     attribute vec3 aShape4;
+    attribute vec3 aPortrait;
+    attribute float aPortraitLum;
     attribute float aRand;
     uniform float uTime;
     uniform float uMorph;
     uniform float uVel;
+    uniform float uSpin;
+    uniform float uPortrait;
+    uniform float uHasPortrait;
     uniform float uSize;
     varying float vRand;
     varying float vDepth;
     varying float vVel;
+    varying float vLum;
+    varying float vPortrait;
 
     float ease(float t) { return t * t * (3.0 - 2.0 * t); }
 
     void main() {
       vRand = aRand;
       vVel = uVel;
+      vLum = aPortraitLum;
+      vPortrait = uPortrait;
 
-      // staggered morph: each particle leads/lags slightly for organic flow
-      float lag = (aRand - 0.5) * 0.3;
+      // everything that would blur the photograph relaxes as it resolves
+      float calm = 1.0 - uPortrait;
+
+      // staggered morph: each particle leads/lags slightly for organic flow.
+      // the stagger tightens at the end so the face lands as one image.
+      float lag = (aRand - 0.5) * 0.3 * (0.45 + 0.55 * calm);
       float m = uMorph + lag;
+
+      // last target is the portrait, or the helix if the image never arrived
+      vec3 finale = mix(aShape4, aPortrait, uHasPortrait);
+
       vec3 p = mix(aShape0, aShape1, ease(clamp(m, 0.0, 1.0)));
       p = mix(p, aShape2, ease(clamp(m - 1.0, 0.0, 1.0)));
       p = mix(p, aShape3, ease(clamp(m - 2.0, 0.0, 1.0)));
-      p = mix(p, aShape4, ease(clamp(m - 3.0, 0.0, 1.0)));
+      p = mix(p, finale,  ease(clamp(m - 3.0, 0.0, 1.0)));
 
       // breathing wobble
       float w = uTime * 0.6 + aRand * 6.2831;
-      p += vec3(sin(w * 1.3), cos(w * 0.9), sin(w * 1.7)) * 0.045;
+      p += vec3(sin(w * 1.3), cos(w * 0.9), sin(w * 1.7)) * 0.045 * (0.12 + 0.88 * calm);
 
       // scroll-velocity turbulence: fast scrolling shakes the field apart
-      p += vec3(sin(w * 3.1), cos(w * 2.3), sin(w * 4.7)) * uVel * (0.2 + aRand * 0.6);
+      p += vec3(sin(w * 3.1), cos(w * 2.3), sin(w * 4.7)) * uVel * (0.2 + aRand * 0.6) * (0.25 + 0.75 * calm);
       // vertical smear — motion-blur feel in the scroll direction
-      p.y += (aRand - 0.5) * uVel * 1.4;
+      p.y += (aRand - 0.5) * uVel * 1.4 * (0.25 + 0.75 * calm);
 
-      // slow global rotation
-      float rot = uTime * 0.05;
-      float c = cos(rot), s = sin(rot);
+      // slow global rotation — driven from JS so it can unwind to face front
+      float c = cos(uSpin), s = sin(uSpin);
       p.xz = mat2(c, -s, s, c) * p.xz;
 
       vec4 mv = modelViewMatrix * vec4(p, 1.0);
       vDepth = -mv.z;
       gl_Position = projectionMatrix * mv;
-      gl_PointSize = uSize * (0.6 + aRand * 0.9) * (1.0 + uVel * 0.45) * (10.0 / -mv.z);
+
+      // sizes even out for the portrait, then lean on luminance so highlights carry
+      float grain = mix(0.6 + aRand * 0.9, 0.9 + aRand * 0.3, uPortrait);
+      grain *= mix(1.0, 0.88 + aPortraitLum * 0.55, uPortrait);
+      gl_PointSize = uSize * grain * (1.0 + uVel * 0.45 * calm) * (10.0 / -mv.z);
     }
   `,
   fragmentShader: /* glsl */ `
@@ -206,6 +242,8 @@ const material = new THREE.ShaderMaterial({
     varying float vRand;
     varying float vDepth;
     varying float vVel;
+    varying float vLum;
+    varying float vPortrait;
 
     void main() {
       vec2 uv = gl_PointCoord - 0.5;
@@ -214,18 +252,53 @@ const material = new THREE.ShaderMaterial({
       float glow = 1.0 - smoothstep(0.0, 0.5, d);
       glow = pow(glow, 2.2);
 
-      vec3 col = mix(uColorB, uColorA, smoothstep(0.25, 0.85, vRand));
-      col = mix(col, uColorC, step(0.96, vRand));     // rare bone-white sparks
-      col += uColorA * vVel * 0.25;                   // hot flash while scrolling fast
+      vec3 scattered = mix(uColorB, uColorA, smoothstep(0.25, 0.85, vRand));
+      scattered = mix(scattered, uColorC, step(0.96, vRand));   // rare bone-white sparks
+
+      // portrait colour comes from the photograph's luminance, remapped onto
+      // the site palette — a black shirt would vanish against a black page
+      vec3 portrait = mix(uColorB, uColorA, smoothstep(0.0, 0.55, vLum));
+      portrait = mix(portrait, uColorC, smoothstep(0.58, 0.90, vLum));
+
+      vec3 col = mix(scattered, portrait, vPortrait);
+      col += uColorA * vVel * 0.25 * (1.0 - vPortrait * 0.65);  // hot flash while scrolling fast
 
       float fade = smoothstep(26.0, 6.0, vDepth);
-      gl_FragColor = vec4(col, glow * fade * 0.85);
+      float alpha = glow * fade * 0.85;
+      alpha *= mix(1.0, 0.85 + vLum * 0.7, vPortrait);           // shadows read as shadow
+      gl_FragColor = vec4(col, alpha);
     }
   `,
 });
 
 const points = new THREE.Points(geometry, material);
+// positions live in the shader, so the CPU-side bounds mean nothing here
+points.frustumCulled = false;
 scene.add(points);
+
+/* ============================================================
+   PORTRAIT — sampled off the main thread's critical path
+   ============================================================ */
+
+let portraitReady = false;
+
+const portraitLoad = samplePortrait({
+  src: PORTRAIT_SRC,
+  count: COUNT,
+  height: PORTRAIT_HEIGHT,
+})
+  .then(({ positions, lum }) => {
+    portraitPos.set(positions);
+    portraitLum.set(lum);
+    geometry.attributes.aPortrait.needsUpdate = true;
+    geometry.attributes.aPortraitLum.needsUpdate = true;
+    uniforms.uHasPortrait.value = 1;
+    portraitReady = true;
+  })
+  .catch((err) => {
+    // a missing, tainted or all-backdrop image leaves the helix as the finale
+    console.warn(`${err.message} — keeping the helix finale`);
+  });
 
 /* ---------- post-processing ---------- */
 
@@ -253,7 +326,9 @@ let rollSmooth = 0;
 const progressBar = document.getElementById('scrollProgress');
 
 function applyScrollState(progress, velocity) {
-  scrollTarget = progress * (SHAPES - 1);
+  // the morph finishes slightly before the true bottom so the finished
+  // portrait holds for the last stretch instead of only existing at 100%
+  scrollTarget = Math.min(progress / SCROLL_HOLD, 1) * (SHAPES - 1);
   velTarget = Math.min(Math.abs(velocity) * 0.02, 1.1);
   rollTarget = THREE.MathUtils.clamp(velocity * 0.001, -0.055, 0.055);
   progressBar.style.transform = `scaleX(${progress})`;
@@ -299,28 +374,60 @@ window.addEventListener('pointermove', (e) => {
 /* ---------- render loop (single rAF drives Lenis + GL) ---------- */
 
 const clock = new THREE.Clock();
+const portraitNote = document.getElementById('portraitNote');
+let spin = 0;
+let lastT = 0;
+let noteShown = false;
 
 function tick(time) {
   lenis?.raf(time);                                  // Lenis needs ms timestamps
 
   const t = clock.getElapsedTime();
+  const dt = Math.min(t - lastT, 0.1);               // clamp across tab switches
+  lastT = t;
   uniforms.uTime.value = reducedMotion ? 0 : t;
 
   scrollCurrent += (scrollTarget - scrollCurrent) * 0.06;
   uniforms.uMorph.value = scrollCurrent;
 
+  /* portrait factor — 0 through the procedural shapes, 1 once the
+     photograph has fully assembled at the bottom of the page */
+  const raw = THREE.MathUtils.clamp(scrollCurrent - (SHAPES - 2), 0, 1);
+  const pf = portraitReady ? raw * raw * (3 - 2 * raw) : 0;
+  uniforms.uPortrait.value = pf;
+
+  /* The field turns slowly, then unwinds to face the camera as the
+     portrait resolves — a spinning photograph is unreadable. Wrapping
+     keeps the angle bounded so the decay always takes the short way home. */
+  spin += dt * 0.05 * (1 - pf);
+  spin = Math.atan2(Math.sin(spin), Math.cos(spin));
+  spin *= 1 - pf * 0.1;
+  uniforms.uSpin.value = reducedMotion ? 0 : spin;
+
   velSmooth += (velTarget - velSmooth) * 0.08;
   velTarget *= 0.92;                                 // decay when scroll events stop
   uniforms.uVel.value = velSmooth;
-  bloom.strength = 0.9 + velSmooth * 0.7;            // bloom pumps with scroll speed
+  // Bloom pumps with scroll speed. For the portrait it eases off and the
+  // threshold climbs, so only true highlights glow — bloom over the whole
+  // tonal range would smear the face into one bright mass.
+  bloom.strength = (0.9 + velSmooth * 0.7) * (1 - pf * 0.2);
+  bloom.threshold = 0.05 + pf * 0.12;
 
   mouse.x += (mouse.tx - mouse.x) * 0.04;
   mouse.y += (mouse.ty - mouse.y) * 0.04;
-  camera.position.x = mouse.x * 1.4;
-  camera.position.y = 1.2 - mouse.y * 1.0 - scrollCurrent * 0.15;
+  const driftY = 1.2 - mouse.y * 1.0 - scrollCurrent * 0.15;
+  camera.position.x = mouse.x * 1.4 * (1 - pf * 0.55);
+  camera.position.y = THREE.MathUtils.lerp(driftY, -mouse.y * 0.45, pf);
+  camera.position.z = THREE.MathUtils.lerp(11, 11.7, pf);
   camera.lookAt(0, 0, 0);
   rollSmooth += (rollTarget - rollSmooth) * 0.07;
-  camera.rotation.z += rollSmooth;                   // subtle banking on fast scroll
+  camera.rotation.z += rollSmooth * (1 - pf * 0.85);  // subtle banking on fast scroll
+
+  const showNote = pf > 0.72;
+  if (showNote !== noteShown) {
+    noteShown = showNote;
+    portraitNote.classList.toggle('visible', showNote);
+  }
 
   composer.render();
   requestAnimationFrame(tick);
@@ -344,16 +451,27 @@ window.addEventListener('resize', () => {
 const loader = document.getElementById('loader');
 const loaderFill = document.getElementById('loaderFill');
 const loaderPct = document.getElementById('loaderPct');
+
+/* The bar stalls short of full until the portrait has been sampled, so the
+   finale is in place before anyone can scroll to it. It never blocks
+   forever — a slow or failed image just releases the loader on its own. */
+let assetsReady = false;
+const assetTimeout = setTimeout(() => { assetsReady = true; }, 6000);
+portraitLoad.finally(() => {
+  clearTimeout(assetTimeout);
+  assetsReady = true;
+});
+
 let progress = 0;
 const loadInterval = setInterval(() => {
-  progress = Math.min(progress + Math.random() * 22, 100);
+  progress = Math.min(progress + Math.random() * 20, assetsReady ? 100 : 88);
   loaderFill.style.width = `${progress}%`;
   loaderPct.textContent = `${Math.round(progress)}%`;
   if (progress >= 100) {
     clearInterval(loadInterval);
     setTimeout(() => loader.classList.add('done'), 250);
   }
-}, 120);
+}, 110);
 
 /* ---------- custom cursor ---------- */
 
@@ -467,7 +585,9 @@ panels.forEach((p) => panelObserver.observe(p));
 /* ---------- easter egg ---------- */
 
 console.log(
-  '%cOBSIDIAN OBSERVATORY %c\n15,000 particles · 5 shapes · 1 shader · smooth by Lenis\ngithub.com/pranav-pradeesh',
+  `%cOBSIDIAN OBSERVATORY %c\n${COUNT.toLocaleString()} particles · 1 shader · smooth by Lenis` +
+    '\nscroll to the bottom — the field resolves into a photograph' +
+    '\ngithub.com/pranav-pradeesh',
   'font-family:monospace;font-size:16px;color:#c8ff00;font-weight:bold',
   'font-family:monospace;color:#8a8d86'
 );
