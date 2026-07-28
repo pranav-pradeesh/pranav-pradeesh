@@ -6,6 +6,7 @@
 
 [![Email](https://img.shields.io/badge/Email-pranavpradeesh09%40gmail.com-0078D4?style=for-the-badge&logo=gmail&logoColor=white)](mailto:pranavpradeesh09@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-pranav--pradeesh-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/pranav-pradeesh)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Pranav%20Pradeesh-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pranav-pradeesh-9994a640b/)
 
 </div>
 
