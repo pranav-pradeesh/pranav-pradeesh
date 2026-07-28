@@ -15,7 +15,8 @@
   --acid: #c8ff00;
   --acid-dim: rgba(200, 255, 0, 0.14);
   --line: rgba(232, 230, 223, 0.1);
-  --scrim: rgba(6, 8, 7, 0.72);
+  --scrim: rgba(6, 8, 7, 0.8);   /* takes --bone-dim over a lit patch of the
+                                    particle field from 2.9:1 to 9.8:1 */
   --font-display: 'Syne', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -43,9 +44,9 @@ body {
 /* ============ CANVAS ============ */
 #scene {
   position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;               /* sizes to the viewport on its own — 100vw would
+                             include the scrollbar gutter and overflow, and
+                             100vh fights mobile toolbars */
   z-index: 0;
   display: block;
 }
@@ -210,6 +211,8 @@ main { position: relative; z-index: 10; }
 
 .panel {
   min-height: 100vh;
+  min-height: 100svh;     /* small-viewport unit: no jump as mobile chrome
+                             collapses. Ignored by browsers that lack it. */
   padding: 140px 8vw 100px;
   display: flex;
   flex-direction: column;
@@ -240,6 +243,11 @@ main { position: relative; z-index: 10; }
 .hero-title__line--accent {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--acid);
+}
+/* Without text-stroke support, transparent fill means the word vanishes
+   entirely. Fall back to solid acid rather than an invisible line. */
+@supports not (-webkit-text-stroke: 1px currentColor) {
+  .hero-title__line--accent { color: var(--acid); }
 }
 .hero-sub {
   margin-top: 36px;
@@ -321,6 +329,26 @@ main { position: relative; z-index: 10; }
 }
 .panel--contact .contact-actions { position: relative; }
 
+/* The hero copy runs under the sphere's dense edge — 2.9:1 before this, the
+   worst contrast left on the page. The title is bone at 8.5rem and needs no
+   help, so only the small type gets a scrim. (.scroll-hint is already
+   absolutely positioned, so it must not be given position: relative.) */
+.panel--hero .kicker,
+.hero-sub { position: relative; }
+
+.panel--hero .kicker::before,
+.hero-sub::before,
+.scroll-hint::before {
+  content: '';
+  position: absolute;
+  inset: -14px -26px;
+  z-index: -1;
+  background: var(--scrim);
+  border-radius: 40px;
+  filter: blur(26px);
+  pointer-events: none;
+}
+
 /* Second line of defence where the scrim feathers out */
 .panel__body p,
 .hero-sub,
@@ -354,6 +382,7 @@ main { position: relative; z-index: 10; }
   color: inherit;
   background: rgba(6, 8, 7, 0.82);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);   /* iOS/Safari before 18 */
   padding: 44px 36px 60px;
   position: relative;
   overflow: hidden;
@@ -403,7 +432,7 @@ main { position: relative; z-index: 10; }
   bottom: 18px; right: 22px;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
-  color: rgba(232, 230, 223, 0.42);
+  color: rgba(232, 230, 223, 0.62);   /* 3.4:1 at 0.42 — under AA */
 }
 
 /* --- skills --- */
@@ -510,6 +539,19 @@ main { position: relative; z-index: 10; }
 html:not(.js) .reveal { opacity: 1; transform: none; }
 html:not(.js) .loader { opacity: 0; visibility: hidden; }
 html:not(.js) #scene { display: none; }
+/* body hides the system cursor because JS draws a replacement. No JS means
+   no replacement, so the visitor is left with no pointer at all. */
+html:not(.js) body { cursor: auto; }
+html:not(.js) .cursor,
+html:not(.js) .cursor-ring { display: none; }
+
+/* The custom cursor removes the usual hover affordance; keyboard users had
+   nothing at all. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 3px;
+}
 
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal {
