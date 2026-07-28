@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============ CORE SEO ============ -->
-  <title>Pranav Pradeesh — Student Developer from Kerala, India | Web · IoT · Backend</title>
-  <meta name="description" content="Pranav Pradeesh is a student developer from Kerala, India, coding since age 12. He builds web, IoT and backend projects — ExamForge, Gas Guard, the NMHSS Thirunavaya school site and Orvaya — and is open to internships." />
+  <title>Pranav Pradeesh — Student Developer in Kerala | Web &amp; IoT</title>
+  <meta name="description" content="Student developer from Kerala, India, coding since 12. Web, IoT and backend projects — ExamForge, Gas Guard, NMHSS. Open to internships." />
   <link rel="canonical" href="https://pranavpradeesh.dev/" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="Pranav Pradeesh" />
@@ -52,7 +52,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
+       so a returning visitor can otherwise pair new HTML with an old
+       stylesheet. Bump this whenever style.css changes. -->
+  <link rel="stylesheet" href="css/style.css?v=3" />
+
+  <style>
+    /* Critical, inlined on purpose: .sr-only hides text that is set in the
+       hero's display face. If it ever depends on a stylesheet that is stale,
+       missing or slow, the line renders at 8.5rem and wrecks the page. It
+       must not be possible for that rule to go missing. */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 
   <script>
     // Reveal animations start hidden — only opt into that once we know scripts

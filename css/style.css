@@ -43,9 +43,9 @@ body {
 /* ============ CANVAS ============ */
 #scene {
   position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;               /* sizes to the viewport on its own — 100vw would
+                             include the scrollbar gutter and overflow, and
+                             100vh fights mobile toolbars */
   z-index: 0;
   display: block;
 }
@@ -210,6 +210,8 @@ main { position: relative; z-index: 10; }
 
 .panel {
   min-height: 100vh;
+  min-height: 100svh;     /* small-viewport unit: no jump as mobile chrome
+                             collapses. Ignored by browsers that lack it. */
   padding: 140px 8vw 100px;
   display: flex;
   flex-direction: column;
@@ -240,6 +242,11 @@ main { position: relative; z-index: 10; }
 .hero-title__line--accent {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--acid);
+}
+/* Without text-stroke support, transparent fill means the word vanishes
+   entirely. Fall back to solid acid rather than an invisible line. */
+@supports not (-webkit-text-stroke: 1px currentColor) {
+  .hero-title__line--accent { color: var(--acid); }
 }
 .hero-sub {
   margin-top: 36px;
@@ -354,6 +361,7 @@ main { position: relative; z-index: 10; }
   color: inherit;
   background: rgba(6, 8, 7, 0.82);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);   /* iOS/Safari before 18 */
   padding: 44px 36px 60px;
   position: relative;
   overflow: hidden;
@@ -510,6 +518,19 @@ main { position: relative; z-index: 10; }
 html:not(.js) .reveal { opacity: 1; transform: none; }
 html:not(.js) .loader { opacity: 0; visibility: hidden; }
 html:not(.js) #scene { display: none; }
+/* body hides the system cursor because JS draws a replacement. No JS means
+   no replacement, so the visitor is left with no pointer at all. */
+html:not(.js) body { cursor: auto; }
+html:not(.js) .cursor,
+html:not(.js) .cursor-ring { display: none; }
+
+/* The custom cursor removes the usual hover affordance; keyboard users had
+   nothing at all. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 3px;
+}
 
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal {
