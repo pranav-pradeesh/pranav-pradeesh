@@ -3,12 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pranav Pradeesh — Developer Portfolio</title>
-  <meta name="description" content="Pranav Pradeesh — student developer from Kerala, India. Building across web, IoT, and backend since age 12." />
+
+  <!-- ============ CORE SEO ============ -->
+  <title>Pranav Pradeesh — Student Developer from Kerala, India | Web · IoT · Backend</title>
+  <meta name="description" content="Pranav Pradeesh is a student developer from Kerala, India, coding since age 12. He builds web, IoT and backend projects — ExamForge, Gas Guard, the NMHSS Thirunavaya school site and Orvaya — and is open to internships." />
+  <link rel="canonical" href="https://pranavpradeesh.dev/" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="Pranav Pradeesh" />
+  <meta name="keywords" content="Pranav Pradeesh, student developer Kerala, web developer India, IoT developer, backend developer, Arduino projects, React developer portfolio, internship" />
+  <meta name="theme-color" content="#060807" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- ============ GEO ============ -->
+  <meta name="geo.region" content="IN-KL" />
+  <meta name="geo.placename" content="Kerala, India" />
+  <meta name="ICBM" content="10.8505, 76.2711" />
+
+  <!-- ============ SOCIAL / OPEN GRAPH ============ -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Pranav Pradeesh" />
+  <meta property="og:title" content="Pranav Pradeesh — Student Developer from Kerala, India" />
+  <meta property="og:description" content="Web, IoT and backend projects built since age 12. ExamForge, Gas Guard, NMHSS Thirunavaya and Orvaya. Open to internships." />
+  <meta property="og:url" content="https://pranavpradeesh.dev/" />
+  <meta property="og:image" content="https://pranavpradeesh.dev/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Pranav Pradeesh — student developer, Kerala, India. Open to internships." />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="profile:first_name" content="Pranav" />
+  <meta property="profile:last_name" content="Pradeesh" />
+  <meta property="profile:username" content="pranav-pradeesh" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pranav Pradeesh — Student Developer from Kerala, India" />
+  <meta name="twitter:description" content="Web, IoT and backend projects built since age 12. Open to internships." />
+  <meta name="twitter:image" content="https://pranavpradeesh.dev/og-image.png" />
+  <meta name="twitter:image:alt" content="Pranav Pradeesh — student developer, Kerala, India." />
+
+  <!-- ============ ICONS ============ -->
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- ============ MACHINE-READABLE SUMMARY FOR LLM CRAWLERS ============ -->
+  <link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt — plain-text site summary" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    // Reveal animations start hidden — only opt into that once we know scripts
+    // run. The watchdog undoes it if the module never boots (blocked CDN,
+    // no-JS crawler), so the page never renders as an empty black screen.
+    document.documentElement.classList.add('js');
+    setTimeout(function () {
+      if (!window.__obsBooted) document.documentElement.classList.remove('js');
+    }, 5000);
+  </script>
+
   <script type="importmap">
     {
       "imports": {
@@ -17,6 +72,142 @@
         "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs"
       }
     }
+  </script>
+
+  <!-- Start the engine download during head parse instead of waiting for the
+       module graph at the end of <body> — three.module.js is the heaviest
+       request on the page and it gates first paint of the particle field. -->
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs" crossorigin />
+  <link rel="modulepreload" href="js/main.js" />
+
+  <!-- ============ STRUCTURED DATA ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pranavpradeesh.dev/#website",
+        "url": "https://pranavpradeesh.dev/",
+        "name": "Pranav Pradeesh",
+        "description": "Portfolio of Pranav Pradeesh, a student developer from Kerala, India working across web, IoT and backend.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://pranavpradeesh.dev/#pranav" }
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://pranavpradeesh.dev/#webpage",
+        "url": "https://pranavpradeesh.dev/",
+        "name": "Pranav Pradeesh — Student Developer from Kerala, India",
+        "isPartOf": { "@id": "https://pranavpradeesh.dev/#website" },
+        "about": { "@id": "https://pranavpradeesh.dev/#pranav" },
+        "mainEntity": { "@id": "https://pranavpradeesh.dev/#pranav" },
+        "primaryImageOfPage": "https://pranavpradeesh.dev/og-image.png",
+        "inLanguage": "en",
+        "dateModified": "2026-07-28",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lede", ".panel__title", ".hero-sub"]
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://pranavpradeesh.dev/#pranav",
+        "name": "Pranav Pradeesh",
+        "givenName": "Pranav",
+        "familyName": "Pradeesh",
+        "url": "https://pranavpradeesh.dev/",
+        "image": "https://pranavpradeesh.dev/og-image.png",
+        "jobTitle": "Student Developer",
+        "description": "Student developer from Kerala, India. Started coding at 12 and builds across web, IoT and backend — ExamForge, Gas Guard, the NMHSS Thirunavaya school website and Orvaya. Currently looking for an internship.",
+        "email": "mailto:pranavpradeesh09@gmail.com",
+        "nationality": { "@type": "Country", "name": "India" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "Kerala",
+          "addressCountry": "IN"
+        },
+        "affiliation": {
+          "@type": "HighSchool",
+          "name": "NMHSS Thirunavaya",
+          "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "Kerala",
+            "addressCountry": "IN"
+          }
+        },
+        "seeks": {
+          "@type": "Demand",
+          "name": "Software development internship (web, IoT or backend)"
+        },
+        "knowsAbout": [
+          "Web development", "Backend development", "Internet of Things",
+          "C++", "Python", "JavaScript", "TypeScript", "HTML", "CSS",
+          "React", "Node.js", "MongoDB", "Three.js", "Arduino",
+          "Sensors and actuators", "Linux", "Git", "AI-assisted development"
+        ],
+        "sameAs": [
+          "https://github.com/pranav-pradeesh"
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://pranavpradeesh.dev/#projects",
+        "name": "Selected work by Pranav Pradeesh",
+        "itemListOrder": "https://schema.org/ItemListOrderAscending",
+        "numberOfItems": 4,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "ExamForge",
+              "applicationCategory": "EducationalApplication",
+              "description": "Online exam and quiz platform. Teachers create exams, students take them, results are generated automatically.",
+              "codeRepository": "https://github.com/pranav-pradeesh/ExamForge",
+              "author": { "@id": "https://pranavpradeesh.dev/#pranav" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Gas Guard",
+              "description": "Arduino-based IoT gas leak detector that raises an alert when its sensors detect a leak.",
+              "programmingLanguage": "C++",
+              "codeRepository": "https://github.com/pranav-pradeesh/GAS-GUARD",
+              "author": { "@id": "https://pranavpradeesh.dev/#pranav" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "NMHSS Thirunavaya school website",
+              "description": "Official website for NMHSS Thirunavaya, live and in production use.",
+              "codeRepository": "https://github.com/pranav-pradeesh/nmhss-project",
+              "author": { "@id": "https://pranavpradeesh.dev/#pranav" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Orvaya",
+              "description": "Responsive marketing website built for a real business client.",
+              "codeRepository": "https://github.com/pranav-pradeesh/Orvaya",
+              "author": { "@id": "https://pranavpradeesh.dev/#pranav" }
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
 </head>
 <body>
@@ -74,6 +265,7 @@
         <span class="hero-title__line reveal">BUILD<span class="accent">.</span></span>
         <span class="hero-title__line hero-title__line--accent reveal">BREAK<span class="accent">.</span></span>
         <span class="hero-title__line reveal">LEARN<span class="accent">.</span></span>
+        <span class="sr-only">Pranav Pradeesh — student developer from Kerala, India, working across web, IoT and backend.</span>
       </h1>
       <p class="hero-sub reveal">Student developer — Web · IoT · Backend — I build stuff to learn how things work</p>
       <div class="scroll-hint reveal">

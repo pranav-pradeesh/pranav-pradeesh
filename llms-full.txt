@@ -1,0 +1,70 @@
+# Pranav Pradeesh — full site text
+
+> Complete plain-text copy of https://pranavpradeesh.dev/, provided so language
+> models and answer engines can read the page without executing WebGL or
+> JavaScript. Last updated 2026-07-28.
+
+## 01 / Hero
+
+PRANAV PRADEESH — KERALA, INDIA — CODING SINCE AGE 12
+
+BUILD. BREAK. LEARN.
+
+Student developer — Web · IoT · Backend — I build stuff to learn how things work.
+
+## 02 / Learn by building
+
+Student from Kerala. Got into coding at 12 and never stopped — IoT, web, and
+backend, mostly figured out as I go.
+
+Most of my projects started because I wanted to understand how something works. I
+build fast with AI tools — shipping things I couldn't have built alone yet, then
+digging in to understand why they work. Some projects are finished, some are still
+being figured out.
+
+Right now I'm looking for an internship where I can actually contribute and learn
+from people who've been doing this longer than me.
+
+Numbers: started coding at 12 · 4 projects shipped · curiosity, unbounded.
+
+## 03 / Selected work
+
+### ExamForge — edtech
+Online exam and quiz platform. Teachers create exams, students take them, results
+come out automatically — built to replace a real workflow.
+Repository: https://github.com/pranav-pradeesh/ExamForge
+
+### Gas Guard — IoT
+Arduino with gas sensors that triggers an alert when it detects a leak. A
+practical safety tool, not a demo.
+Repository: https://github.com/pranav-pradeesh/GAS-GUARD
+
+### NMHSS Thirunavaya — live in production
+The official website for my school. Actually live and actually being used — my
+first real users.
+Repository: https://github.com/pranav-pradeesh/nmhss-project
+
+### Orvaya — client work
+Website built for a real business. Professional look, works properly on every
+screen size.
+Repository: https://github.com/pranav-pradeesh/Orvaya
+
+## 04 / Tool chain
+
+Languages: C++, Python, JavaScript, TypeScript, HTML / CSS
+Web: React, Node.js, MongoDB, Three.js
+IoT / systems: Arduino, sensors and actuators, Linux, Git
+How I work: AI-assisted development, rapid prototyping, shipping > perfect,
+reading docs at 2am
+
+## 05 / Contact
+
+Let's build something real.
+
+Email: pranavpradeesh09@gmail.com
+GitHub: https://github.com/pranav-pradeesh
+Location: Kerala, India
+Status: open to internships
+
+© 2026 Pranav Pradeesh · Kerala, India
+Smooth scrolling by Lenis · particles by Three.js
