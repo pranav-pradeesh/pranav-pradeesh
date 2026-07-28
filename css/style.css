@@ -30,12 +30,17 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 
+/* clip, not hidden: hidden on the root turns the viewport into a scroll
+   container and still let a stray fixed element widen the document. clip
+   cannot scroll, so nothing can produce a sideways scrollbar. */
+html { overflow-x: clip; }
+
 body {
   background: var(--void);
   color: var(--bone);
   font-family: var(--font-mono);
   font-weight: 300;
-  overflow-x: hidden;
+  overflow-x: clip;
   cursor: none;
 }
 
@@ -54,9 +59,10 @@ body {
 /* ============ GRAIN ============ */
 .grain {
   position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
+  /* only needs enough slack to cover the 2% drift in grain-shift. At 200%
+     it was the single widest box on the page — 640px wide on a 320px
+     screen — and pushed the document sideways. */
+  inset: -6%;
   z-index: 50;
   pointer-events: none;
   opacity: 0.05;
@@ -137,7 +143,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px 40px;
+  /* fluid: at a fixed 40px the four nav links no longer fit beside the logo
+     on a 320px screen and wrapped to a second row */
+  padding: clamp(14px, 3vw, 28px) clamp(12px, 3vw, 40px);
   mix-blend-mode: difference;
 }
 .chrome__logo {
@@ -148,12 +156,21 @@ body {
   text-decoration: none;
   letter-spacing: -0.02em;
 }
-.chrome__nav { display: flex; gap: 32px; }
+/* Fluid rather than a breakpoint: the four links measured 309px against
+   276px of usable width at 320px, so they ran off the screen. These clamps
+   hold the design's values from ~1100px up and shrink continuously below. */
+.chrome__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 2.2vw, 32px);
+  min-width: 0;
+}
 .chrome__nav a {
   color: var(--bone);
   text-decoration: none;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
+  font-size: clamp(0.55rem, 1.6vw, 0.7rem);
+  letter-spacing: clamp(0.08em, 0.5vw, 0.25em);
   text-transform: uppercase;
   position: relative;
   padding: 4px 0;
@@ -234,7 +251,9 @@ main { position: relative; z-index: 10; }
 .hero-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.6rem, 8.6vw, 8.5rem);
+  /* vw cap: the rem floor grows with the user's default font size and at
+     24px root it pushed BUILD. past the right edge of a 390px screen. */
+  font-size: min(clamp(2.6rem, 8.6vw, 8.5rem), 15vw);
   line-height: 0.95;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -308,7 +327,7 @@ main { position: relative; z-index: 10; }
 .panel__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  font-size: min(clamp(2.2rem, 5.5vw, 4.5rem), 10.5vw);
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -325,6 +344,7 @@ main { position: relative; z-index: 10; }
    box on top of the particles.
    ---------------------------------------------------------------------- */
 .panel__body::before,
+.panel--contact .contact-title::before,
 .panel--contact .contact-actions::before {
   content: '';
   position: absolute;
@@ -335,7 +355,10 @@ main { position: relative; z-index: 10; }
   filter: blur(30px);
   pointer-events: none;
 }
-.panel--contact .contact-actions { position: relative; }
+/* On a phone the sphere fills the viewport, so the contact heading lands on
+   its brightest part — the accent word all but disappears there. */
+.panel--contact .contact-actions,
+.panel--contact .contact-title { position: relative; }
 
 /* The hero copy runs under the sphere's dense edge — 2.9:1 before this, the
    worst contrast left on the page. The title is bone at 8.5rem and needs no
@@ -475,7 +498,8 @@ main { position: relative; z-index: 10; }
 .contact-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.2rem, 6.2vw, 5.6rem);
+  /* 2.2rem floor put "SOMETHING REAL" at 366px inside a 282px column */
+  font-size: min(clamp(1.6rem, 6.2vw, 5.6rem), 8vw);
   line-height: 1.05;
   letter-spacing: -0.02em;
   margin: 24px 0 50px;
@@ -490,9 +514,12 @@ main { position: relative; z-index: 10; }
 .contact-ghost {
   color: var(--bone-dim);
   text-decoration: none;
-  font-size: 0.78rem;
+  /* the label is a fixed-length URL, so it grows with the user's font size
+     and stops fitting narrow screens — cap against the viewport too */
+  font-size: min(0.78rem, 4vw);
   letter-spacing: 0.08em;
-  padding: 20px 26px;
+  padding: clamp(14px, 3vw, 20px) clamp(14px, 5vw, 26px);
+  max-width: 100%;
   border: 1px solid var(--line);
   transition: color 0.3s, border-color 0.3s;
 }
@@ -504,9 +531,10 @@ main { position: relative; z-index: 10; }
   color: var(--void);
   background: var(--acid);
   text-decoration: none;
-  font-size: clamp(0.8rem, 2vw, 1.05rem);
+  font-size: min(clamp(0.8rem, 2vw, 1.05rem), 4.2vw);   /* email address */
   font-weight: 500;
-  padding: 20px 36px;
+  padding: clamp(14px, 4vw, 20px) clamp(16px, 6vw, 36px);
+  max-width: 100%;
   letter-spacing: 0.05em;
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
 }
@@ -574,7 +602,18 @@ button:focus-visible {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 860px) {
-  .chrome { padding: 20px 22px; }
+  .hero-title { position: relative; }
+  .hero-title::before {
+    content: '';
+    position: absolute;
+    inset: -12px -22px;
+    z-index: -1;
+    background: var(--scrim);
+    border-radius: 50px;
+    filter: blur(28px);
+    pointer-events: none;
+  }
+
   .chrome__status { display: none; }
   .chrome__nav { gap: 18px; }
   .section-indicator { right: 16px; }
