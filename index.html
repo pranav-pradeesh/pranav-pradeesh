@@ -74,6 +74,13 @@
     }
   </script>
 
+  <!-- Start the engine download during head parse instead of waiting for the
+       module graph at the end of <body> — three.module.js is the heaviest
+       request on the page and it gates first paint of the particle field. -->
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs" crossorigin />
+  <link rel="modulepreload" href="js/main.js" />
+
   <!-- ============ STRUCTURED DATA ============ -->
   <script type="application/ld+json">
   {
