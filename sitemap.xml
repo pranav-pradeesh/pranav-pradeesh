@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- Only URLs on this host belong in a sitemap. The project repositories live
+       on github.com and are linked from the page instead. -->
   <url>
-    <loc>https://pranav-pradeesh.github.io/pranav-pradeesh/</loc>
-    
-    <lastmod>2025-03-01</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://pranavpradeesh.dev/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://pranavpradeesh.dev/og-image.png</image:loc>
+      <image:title>Pranav Pradeesh — Student Developer from Kerala, India</image:title>
+      <image:caption>Portfolio card for Pranav Pradeesh: web, IoT and backend projects. Open to internships.</image:caption>
+    </image:image>
   </url>
-  <url>
-    <loc>https://github.com/pranav-pradeesh/GAS-GUARD/</loc>
-    
-    <lastmod>2025-03-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://nmhss.onrender.com/</loc>
 
-    <lastmod>2025-03-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>1.0</priority>
-  </url>
 </urlset>

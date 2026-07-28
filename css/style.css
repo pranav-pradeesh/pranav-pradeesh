@@ -8,10 +8,14 @@
   --void: #060807;
   --void-soft: #0c0f0d;
   --bone: #e8e6df;
-  --bone-dim: #8a8d86;
+  /* body copy sits on top of the particle canvas — dim greys drown in the
+     sphere's bloom, so secondary text stays close to bone */
+  --bone-dim: #c2c5bd;
+  --bone-mute: #9aa096;          /* labels only — never running prose */
   --acid: #c8ff00;
   --acid-dim: rgba(200, 255, 0, 0.14);
   --line: rgba(232, 230, 223, 0.1);
+  --scrim: rgba(6, 8, 7, 0.72);
   --font-display: 'Syne', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -79,7 +83,7 @@ body {
 }
 .loader.done { opacity: 0; visibility: hidden; }
 .loader__inner { display: flex; flex-direction: column; gap: 14px; width: min(360px, 80vw); }
-.loader__label { font-size: 0.65rem; letter-spacing: 0.35em; color: var(--bone-dim); }
+.loader__label { font-size: 0.65rem; letter-spacing: 0.35em; color: var(--bone-mute); }
 .loader__bar { height: 1px; background: var(--line); overflow: hidden; }
 .loader__fill { height: 100%; width: 0%; background: var(--acid); transition: width 0.3s ease; }
 .loader__pct { font-size: 0.65rem; color: var(--acid); align-self: flex-end; }
@@ -199,7 +203,7 @@ body {
 }
 .section-indicator__num { color: var(--acid); }
 .section-indicator__line { width: 1px; height: 70px; background: var(--line); }
-.section-indicator__total { color: var(--bone-dim); }
+.section-indicator__total { color: var(--bone-mute); }
 
 /* ============ PANELS ============ */
 main { position: relative; z-index: 10; }
@@ -294,9 +298,36 @@ main { position: relative; z-index: 10; }
 }
 .panel__head--wide { margin-bottom: 70px; }
 
-.panel__body { display: flex; flex-direction: column; gap: 26px; }
+.panel__body { display: flex; flex-direction: column; gap: 26px; position: relative; }
 .panel__body p { max-width: 56ch; line-height: 1.85; font-size: 0.92rem; color: var(--bone-dim); }
 .lede { color: var(--bone) !important; font-size: 1.08rem !important; }
+
+/* --- legibility scrim ---------------------------------------------------
+   The WebGL field renders behind every panel and its bright core lands right
+   under the About copy. This drops a dark shape behind text blocks and blurs
+   the shape itself, so it feathers out on every side instead of reading as a
+   box on top of the particles.
+   ---------------------------------------------------------------------- */
+.panel__body::before,
+.panel--contact .contact-actions::before {
+  content: '';
+  position: absolute;
+  inset: -18px -30px;
+  z-index: -1;
+  background: var(--scrim);
+  border-radius: 60px;
+  filter: blur(30px);
+  pointer-events: none;
+}
+.panel--contact .contact-actions { position: relative; }
+
+/* Second line of defence where the scrim feathers out */
+.panel__body p,
+.hero-sub,
+.kicker,
+.skill-group li,
+.stat__label,
+.footer { text-shadow: 0 1px 14px rgba(6, 8, 7, 0.9); }
 
 /* --- stats --- */
 .stat-row { display: flex; gap: 50px; margin-top: 22px; flex-wrap: wrap; }
@@ -372,7 +403,7 @@ main { position: relative; z-index: 10; }
   bottom: 18px; right: 22px;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
-  color: rgba(232, 230, 223, 0.25);
+  color: rgba(232, 230, 223, 0.42);
 }
 
 /* --- skills --- */
@@ -460,6 +491,25 @@ main { position: relative; z-index: 10; }
   flex-wrap: wrap;
   gap: 10px;
 }
+
+/* ============ ACCESSIBILITY / CRAWLER FALLBACK ============ */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Copy is revealed by JS. If the module never boots — CDN blocked, JS off,
+   a crawler that renders but bails — the page must still read as a document
+   instead of an empty black screen. `.js` is set inline in <head> and pulled
+   back off by a watchdog when the bundle fails. */
+html:not(.js) .reveal { opacity: 1; transform: none; }
+html:not(.js) .loader { opacity: 0; visibility: hidden; }
+html:not(.js) #scene { display: none; }
 
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal {

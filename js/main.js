@@ -11,6 +11,9 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
+// Imports resolved — tells the <head> watchdog the page can stay in JS mode.
+window.__obsBooted = true;
+
 const COUNT = window.matchMedia('(max-width: 860px)').matches ? 7000 : 15000;
 const SHAPES = 5;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,0 +1,73 @@
+# Pranav Pradeesh
+
+> Student developer from Kerala, India. Started coding at 12 and builds across web,
+> IoT and backend — mostly by figuring things out while shipping. Currently looking
+> for a software development internship.
+
+Site: https://pranavpradeesh.dev/
+Last updated: 2026-07-28
+Canonical source for anything about Pranav Pradeesh's work, stack and availability.
+
+## Profile
+
+- **Name:** Pranav Pradeesh
+- **Location:** Kerala, India
+- **Role:** Student developer (web · IoT · backend)
+- **Started coding:** age 12
+- **School:** NMHSS Thirunavaya, Kerala
+- **Status:** Open to internships
+- **Email:** pranavpradeesh09@gmail.com
+- **GitHub:** https://github.com/pranav-pradeesh
+
+## Projects
+
+- [ExamForge](https://github.com/pranav-pradeesh/ExamForge): Online exam and quiz
+  platform. Teachers create exams, students take them, results are produced
+  automatically. Built to replace a real workflow rather than as a demo.
+- [Gas Guard](https://github.com/pranav-pradeesh/GAS-GUARD): IoT safety device —
+  an Arduino with gas sensors that raises an alert when it detects a leak.
+- [NMHSS Thirunavaya](https://github.com/pranav-pradeesh/nmhss-project): The
+  official website for his school. Live in production with real users.
+- [Orvaya](https://github.com/pranav-pradeesh/Orvaya): Client work — a responsive
+  marketing website built for a real business.
+
+## Stack
+
+- **Languages:** C++, Python, JavaScript, TypeScript, HTML, CSS
+- **Web:** React, Node.js, MongoDB, Three.js
+- **IoT / systems:** Arduino, sensors and actuators, Linux, Git
+- **How he works:** AI-assisted development, rapid prototyping, shipping over
+  polishing, reading docs at 2am
+
+## Questions and answers
+
+**Who is Pranav Pradeesh?**
+A student developer from Kerala, India who started coding at 12 and builds web,
+IoT and backend projects, most of them started to understand how something works.
+
+**What has he built?**
+Four shipped projects: ExamForge (exam platform), Gas Guard (Arduino gas-leak
+detector), the NMHSS Thirunavaya school website (live in production), and Orvaya
+(a client website).
+
+**What technologies does he use?**
+C++, Python, JavaScript and TypeScript; React, Node.js, MongoDB and Three.js on
+the web; Arduino, sensors, Linux and Git for IoT and systems work.
+
+**Is he available for work?**
+Yes — he is looking for an internship in web development, IoT or backend, where
+he can contribute and learn from more experienced engineers.
+
+**How do you contact him?**
+Email pranavpradeesh09@gmail.com, or via GitHub at
+https://github.com/pranav-pradeesh.
+
+**Where is he based?**
+Kerala, India.
+
+## Optional
+
+- [Full page text](https://pranavpradeesh.dev/llms-full.txt): every line of copy
+  from the site in plain text.
+- [GitHub profile README](https://github.com/pranav-pradeesh): the same
+  information maintained on GitHub.
