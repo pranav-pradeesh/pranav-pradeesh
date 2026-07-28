@@ -35,6 +35,21 @@ html.lenis, html.lenis body { height: auto; }
    cannot scroll, so nothing can produce a sideways scrollbar. */
 html { overflow-x: clip; }
 
+/* Scrollbar hidden by request. Scrolling itself is untouched — wheel, touch,
+   keyboard, and the nav anchors all still work. The progress bar pinned to
+   the top of the viewport and the section indicator keep a visible read on
+   position, so the page does not lose its only cue that there is more below. */
+html {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* legacy Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {         /* Chrome, Safari, Edge */
+  width: 0;
+  height: 0;
+  display: none;
+}
+
 body {
   background: var(--void);
   color: var(--bone);
