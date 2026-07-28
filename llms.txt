@@ -18,6 +18,7 @@ Canonical source for anything about Pranav Pradeesh's work, stack and availabili
 - **Status:** Open to internships
 - **Email:** pranavpradeesh09@gmail.com
 - **GitHub:** https://github.com/pranav-pradeesh
+- **LinkedIn:** https://www.linkedin.com/in/pranav-pradeesh-9994a640b/
 
 ## Projects
 
@@ -59,8 +60,9 @@ Yes — he is looking for an internship in web development, IoT or backend, wher
 he can contribute and learn from more experienced engineers.
 
 **How do you contact him?**
-Email pranavpradeesh09@gmail.com, or via GitHub at
-https://github.com/pranav-pradeesh.
+Email pranavpradeesh09@gmail.com, via GitHub at
+https://github.com/pranav-pradeesh, or on LinkedIn at
+https://www.linkedin.com/in/pranav-pradeesh-9994a640b/.
 
 **Where is he based?**
 Kerala, India.
