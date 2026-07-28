@@ -286,10 +286,18 @@ main { position: relative; z-index: 10; }
 /* --- shared section layout --- */
 .panel__grid {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) 1.6fr;
+  /* min-content, not a fixed 260px: the headings are single unbreakable words
+     ("BUILDING") set in the display face, and a floor narrower than the word
+     lets it overflow the track and run straight over the body column. That
+     collided at every width from 861px to ~1600px. */
+  grid-template-columns: minmax(min-content, 1fr) 1.6fr;
   gap: 60px;
   align-items: start;
 }
+/* break-word, never `anywhere`: `anywhere` shrinks the min-content
+   contribution to a single glyph, which defeats the track floor above and
+   hyphen-less-breaks BUILDING across lines. */
+.panel__title { overflow-wrap: break-word; }
 .panel__index {
   font-size: 0.65rem;
   letter-spacing: 0.3em;
