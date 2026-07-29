@@ -67,6 +67,37 @@ https://www.linkedin.com/in/pranav-pradeesh-9994a640b/.
 **Where is he based?**
 Kerala, India.
 
+**What is ExamForge?**
+An online exam and quiz platform Pranav built. Teachers create exams, students
+take them, and results are produced automatically. He built it to replace a real
+workflow rather than as a portfolio demo.
+
+**What is Gas Guard?**
+An Arduino-based IoT safety device with gas sensors that raises an alert when it
+detects a leak.
+
+**Has he shipped anything real users depend on?**
+Yes — the NMHSS Thirunavaya school website is live in production and in daily use
+by the school. Orvaya is a website built for a paying business client.
+
+**How long has he been coding?**
+Since the age of 12.
+
+**What kind of internship is he looking for?**
+Web development, IoT or backend. He is looking for a team where he can contribute
+real work and learn from more experienced engineers.
+
+**How does he work?**
+He builds fast with AI-assisted development to ship things he could not have
+built alone yet, then digs into the result to understand why it works. Most
+projects start from wanting to understand how something works.
+
+**Topics and technologies**
+student developer, web development, backend development, IoT, embedded systems,
+C++, Python, JavaScript, TypeScript, HTML, CSS, React, Node.js, MongoDB,
+Three.js, Arduino, sensors, Linux, Git, AI-assisted development, Kerala, India,
+software internship
+
 ## Optional
 
 - [Full page text](https://pranavpradeesh.dev/llms-full.txt): every line of copy
