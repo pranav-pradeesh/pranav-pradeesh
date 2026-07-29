@@ -620,6 +620,42 @@ main { position: relative; z-index: 10; }
 }
 
 /* ============ ACCESSIBILITY / CRAWLER FALLBACK ============ */
+/* Keyboard users landed straight in the nav with no way past it. */
+.skip-link {
+  position: absolute;
+  left: 12px; top: -60px;
+  z-index: 400;
+  padding: 12px 18px;
+  background: var(--acid);
+  color: var(--void);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition: top 0.2s var(--ease-out);
+}
+.skip-link:focus { top: 12px; }
+
+/* A recruiter who prints or saves the page as PDF should get the words, not
+   a black rectangle with a WebGL canvas in it. */
+@media print {
+  #scene, .grain, .cursor, .cursor-ring, .loader,
+  .scroll-progress, .section-indicator, .scroll-hint { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; cursor: auto !important; }
+  .panel { min-height: auto !important; padding: 18pt 0 !important; page-break-inside: avoid; }
+  .chrome { position: static !important; mix-blend-mode: normal !important; padding: 0 0 12pt !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .panel__body::before, .contact-title::before, .contact-actions::before,
+  .faq::before, .hero-title::before, .kicker::before, .hero-sub::before { display: none !important; }
+  .hero-title, .panel__title, .contact-title, .project__name, .chrome__logo { color: #000 !important; }
+  .hero-title__line--accent { -webkit-text-stroke: 0 !important; color: #000 !important; }
+  .accent, .panel__index, .stat__num, .skill-group h4, .faq__title, .project__tag { color: #000 !important; }
+  .panel__body p, .project__desc, .skill-group li, .faq__a, .kicker,
+  .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
+  .project { background: none !important; backdrop-filter: none !important; border: 1pt solid #999; }
+  .projects { background: none !important; gap: 10pt; }
+  .contact-link { background: none !important; color: #000 !important; border: 1pt solid #000; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; }
+}
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;

@@ -15,8 +15,8 @@ Canonical source for anything about Pranav Pradeesh's work, stack and availabili
 - **Location:** Kerala, India
 - **Role:** B.Tech Computer Science student and developer (web · IoT · backend)
 - **Started coding:** age 12
-- **Studying:** B.Tech Computer Science, first year, Nehru College of Engineering
-  and Research Centre (NCERC), Pambady, Kerala
+- **Studying:** B.Tech Computer Science, first year (2026–2030), Nehru College of
+  Engineering and Research Centre (NCERC), Pambady, Kerala
 - **Previously:** NMHSS Thirunavaya, Kerala — whose website he built
 - **Status:** Open to internships
 - **Email:** pranavpradeesh09@gmail.com
@@ -73,7 +73,7 @@ Kerala, India.
 
 **Where does he study?**
 First-year B.Tech Computer Science at Nehru College of Engineering and Research
-Centre (NCERC), Pambady, Kerala. Before that, NMHSS Thirunavaya — whose official
+Centre (NCERC), Pambady, Kerala, graduating in 2030. Before that, NMHSS Thirunavaya — whose official
 website he built and which is still live.
 
 **What is ExamForge?**
