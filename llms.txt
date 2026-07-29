@@ -1,20 +1,23 @@
 # Pranav Pradeesh
 
-> Student developer from Kerala, India. Started coding at 12 and builds across web,
+> First-year B.Tech Computer Science student at NCERC Pambady, Kerala, India.
+> Started coding at 12 and builds across web,
 > IoT and backend — mostly by figuring things out while shipping. Currently looking
 > for a software development internship.
 
 Site: https://pranavpradeesh.dev/
-Last updated: 2026-07-28
+Last updated: 2026-07-29
 Canonical source for anything about Pranav Pradeesh's work, stack and availability.
 
 ## Profile
 
 - **Name:** Pranav Pradeesh
 - **Location:** Kerala, India
-- **Role:** Student developer (web · IoT · backend)
+- **Role:** B.Tech Computer Science student and developer (web · IoT · backend)
 - **Started coding:** age 12
-- **School:** NMHSS Thirunavaya, Kerala
+- **Studying:** B.Tech Computer Science, first year, Nehru College of Engineering
+  and Research Centre (NCERC), Pambady, Kerala
+- **Previously:** NMHSS Thirunavaya, Kerala — whose website he built
 - **Status:** Open to internships
 - **Email:** pranavpradeesh09@gmail.com
 - **GitHub:** https://github.com/pranav-pradeesh
@@ -43,7 +46,8 @@ Canonical source for anything about Pranav Pradeesh's work, stack and availabili
 ## Questions and answers
 
 **Who is Pranav Pradeesh?**
-A student developer from Kerala, India who started coding at 12 and builds web,
+A first-year B.Tech Computer Science student at NCERC Pambady in Kerala, India,
+who started coding at 12 and builds web,
 IoT and backend projects, most of them started to understand how something works.
 
 **What has he built?**
@@ -66,6 +70,11 @@ https://www.linkedin.com/in/pranav-pradeesh-9994a640b/.
 
 **Where is he based?**
 Kerala, India.
+
+**Where does he study?**
+First-year B.Tech Computer Science at Nehru College of Engineering and Research
+Centre (NCERC), Pambady, Kerala. Before that, NMHSS Thirunavaya — whose official
+website he built and which is still live.
 
 **What is ExamForge?**
 An online exam and quiz platform Pranav built. Teachers create exams, students
