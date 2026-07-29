@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=6" />
+  <link rel="stylesheet" href="css/style.css?v=7" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -289,6 +289,56 @@
             }
           }
         ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pranavpradeesh.dev/#faq",
+        "isPartOf": {
+          "@id": "https://pranavpradeesh.dev/#webpage"
+        },
+        "inLanguage": "en",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does Pranav Pradeesh build?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Web, IoT and backend projects. ExamForge, an online exam and quiz platform; Gas Guard, an Arduino gas-leak detector; the NMHSS Thirunavaya school website, live in production; and Orvaya, a site for a business client."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What technologies does he use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "C++, Python, JavaScript and TypeScript. React, Node.js, MongoDB and Three.js on the web. Arduino, sensors, Linux and Git for IoT and systems work."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is he available for work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long has he been coding?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Since the age of 12. Most projects started from wanting to understand how something works, then building it to find out."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is he based?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kerala, India."
+            }
+          }
+        ]
       }
     ]
   }
@@ -460,6 +510,31 @@
           linkedin.com/in/pranav-pradeesh
         </a>
       </div>
+      <section class="faq reveal" aria-labelledby="faq-title">
+        <h3 class="faq__title" id="faq-title">Questions</h3>
+        <dl class="faq__list">
+          <div class="faq__item">
+            <dt class="faq__q">What does Pranav Pradeesh build?</dt>
+            <dd class="faq__a">Web, IoT and backend projects. ExamForge, an online exam and quiz platform; Gas Guard, an Arduino gas-leak detector; the NMHSS Thirunavaya school website, live in production; and Orvaya, a site for a business client.</dd>
+          </div>
+          <div class="faq__item">
+            <dt class="faq__q">What technologies does he use?</dt>
+            <dd class="faq__a">C++, Python, JavaScript and TypeScript. React, Node.js, MongoDB and Three.js on the web. Arduino, sensors, Linux and Git for IoT and systems work.</dd>
+          </div>
+          <div class="faq__item">
+            <dt class="faq__q">Is he available for work?</dt>
+            <dd class="faq__a">Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer.</dd>
+          </div>
+          <div class="faq__item">
+            <dt class="faq__q">How long has he been coding?</dt>
+            <dd class="faq__a">Since the age of 12. Most projects started from wanting to understand how something works, then building it to find out.</dd>
+          </div>
+          <div class="faq__item">
+            <dt class="faq__q">Where is he based?</dt>
+            <dd class="faq__a">Kerala, India.</dd>
+          </div>
+        </dl>
+      </section>
       <footer class="footer reveal">
         <span>© 2026 PRANAV PRADEESH · KERALA, INDIA</span>
         <span>SMOOTH BY LENIS · PARTICLES BY THREE.JS</span>
