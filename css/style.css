@@ -360,7 +360,8 @@ main { position: relative; z-index: 10; }
    ---------------------------------------------------------------------- */
 .panel__body::before,
 .panel--contact .contact-title::before,
-.panel--contact .contact-actions::before {
+.panel--contact .contact-actions::before,
+.faq::before {
   content: '';
   position: absolute;
   inset: -18px -30px;
@@ -401,6 +402,8 @@ main { position: relative; z-index: 10; }
 .kicker,
 .skill-group li,
 .stat__label,
+.faq__q,
+.faq__a,
 .footer { text-shadow: 0 1px 14px rgba(6, 8, 7, 0.9); }
 
 /* --- stats --- */
@@ -559,10 +562,54 @@ main { position: relative; z-index: 10; }
 .contact-link__arrow { transition: transform 0.3s var(--ease-out); }
 .contact-link:hover .contact-link__arrow { transform: translateX(8px); }
 
+/* --- FAQ ---
+   Borrows the skills list's vocabulary — acid micro-label, hairline rules,
+   mono body — so it reads as part of the page rather than an SEO bolt-on.
+   Left aligned inside the otherwise centred contact panel, because running
+   answers centred is hard to read. */
+.faq {
+  width: min(760px, 100%);
+  margin: 70px auto 0;
+  text-align: left;
+  position: relative;
+}
+.faq__title {
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--acid);
+  margin-bottom: 18px;
+}
+.faq__item {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+}
+.faq__item:last-child { border-bottom: 1px solid var(--line); }
+.faq__q {
+  font-size: 0.85rem;
+  color: var(--bone);
+  margin-bottom: 8px;
+}
+.faq__a {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--bone-dim);
+  max-width: 64ch;
+}
+
+/* Was position:absolute at bottom:32px, which the panel's content grew into
+   once the FAQ was added. Two auto margins instead — one above the heading,
+   one above the footer — so the spare space splits between them and the
+   footer sits at the bottom when there is room, and simply follows the
+   content when there is not. Holds at any content height, unlike a
+   breakpoint. */
+.panel--contact { justify-content: flex-start; }
+.panel--contact .contact-title { margin-top: auto; }
+
 .footer {
-  position: absolute;
-  bottom: 32px;
-  left: 8vw; right: 8vw;
+  margin-top: auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   font-size: 0.58rem;
@@ -573,6 +620,42 @@ main { position: relative; z-index: 10; }
 }
 
 /* ============ ACCESSIBILITY / CRAWLER FALLBACK ============ */
+/* Keyboard users landed straight in the nav with no way past it. */
+.skip-link {
+  position: absolute;
+  left: 12px; top: -60px;
+  z-index: 400;
+  padding: 12px 18px;
+  background: var(--acid);
+  color: var(--void);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition: top 0.2s var(--ease-out);
+}
+.skip-link:focus { top: 12px; }
+
+/* A recruiter who prints or saves the page as PDF should get the words, not
+   a black rectangle with a WebGL canvas in it. */
+@media print {
+  #scene, .grain, .cursor, .cursor-ring, .loader,
+  .scroll-progress, .section-indicator, .scroll-hint { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; cursor: auto !important; }
+  .panel { min-height: auto !important; padding: 18pt 0 !important; page-break-inside: avoid; }
+  .chrome { position: static !important; mix-blend-mode: normal !important; padding: 0 0 12pt !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .panel__body::before, .contact-title::before, .contact-actions::before,
+  .faq::before, .hero-title::before, .kicker::before, .hero-sub::before { display: none !important; }
+  .hero-title, .panel__title, .contact-title, .project__name, .chrome__logo { color: #000 !important; }
+  .hero-title__line--accent { -webkit-text-stroke: 0 !important; color: #000 !important; }
+  .accent, .panel__index, .stat__num, .skill-group h4, .faq__title, .project__tag { color: #000 !important; }
+  .panel__body p, .project__desc, .skill-group li, .faq__a, .kicker,
+  .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
+  .project { background: none !important; backdrop-filter: none !important; border: 1pt solid #999; }
+  .projects { background: none !important; gap: 10pt; }
+  .contact-link { background: none !important; color: #000 !important; border: 1pt solid #000; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; }
+}
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;

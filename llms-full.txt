@@ -2,11 +2,12 @@
 
 > Complete plain-text copy of https://pranavpradeesh.dev/, provided so language
 > models and answer engines can read the page without executing WebGL or
-> JavaScript. Last updated 2026-07-28.
+> JavaScript. Last updated 2026-07-29.
 
 ## 01 / Hero
 
 PRANAV PRADEESH — KERALA, INDIA — CODING SINCE AGE 12
+(B.Tech Computer Science, first year, NCERC Pambady — graduating 2030)
 
 BUILD. BREAK. LEARN.
 
@@ -14,8 +15,9 @@ Student developer — Web · IoT · Backend — I build stuff to learn how thing
 
 ## 02 / Learn by building
 
-Student from Kerala. Got into coding at 12 and never stopped — IoT, web, and
-backend, mostly figured out as I go.
+First-year B.Tech Computer Science student at NCERC Pambady, Kerala. Got into
+coding at 12 and never stopped — IoT, web, and backend, mostly figured out as I
+go.
 
 Most of my projects started because I wanted to understand how something works. I
 build fast with AI tools — shipping things I couldn't have built alone yet, then
