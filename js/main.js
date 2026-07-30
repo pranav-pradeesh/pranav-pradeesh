@@ -185,7 +185,9 @@ function loadPortrait() {
 
 const canvas = document.getElementById('scene');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const isSmall = window.matchMedia('(max-width: 860px)').matches;
+const MAX_DPR = isSmall ? 1.5 : 1.75;
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, MAX_DPR));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
@@ -305,8 +307,9 @@ scene.add(points);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
+const BLOOM_SCALE = 0.5;
 const bloom = new UnrealBloomPass(
-  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  new THREE.Vector2(window.innerWidth * BLOOM_SCALE, window.innerHeight * BLOOM_SCALE),
   0.9,    // strength
   0.7,    // radius
   0.05    // threshold
@@ -331,10 +334,16 @@ let rollSmooth = 0;
 
 const progressBar = document.getElementById('scrollProgress');
 
-function applyScrollState(progress, velocity) {
+let scrollY = 0;
+let velRaw = 0;
+const velBar = document.getElementById('velBar');
+
+function applyScrollState(progress, velocity, position) {
   scrollTarget = progress * (SHAPES - 1);
   velTarget = Math.min(Math.abs(velocity) * 0.02, 1.1);
   rollTarget = THREE.MathUtils.clamp(velocity * 0.001, -0.055, 0.055);
+  velRaw = Math.abs(velocity);
+  if (typeof position === 'number') scrollY = position;
   progressBar.style.transform = `scaleX(${progress})`;
 }
 
@@ -345,7 +354,7 @@ if (!reducedMotion) {
     wheelMultiplier: 1.0,
     touchMultiplier: 1.4,
   });
-  lenis.on('scroll', (e) => applyScrollState(e.progress, e.velocity));
+  lenis.on('scroll', (e) => applyScrollState(e.progress, e.velocity, e.scroll));
 
   // eased anchor navigation through Lenis instead of native jumps
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -363,9 +372,15 @@ if (!reducedMotion) {
   // native scroll fallback, no velocity effects
   window.addEventListener('scroll', () => {
     const max = document.documentElement.scrollHeight - window.innerHeight;
-    applyScrollState(max > 0 ? window.scrollY / max : 0, 0);
+    applyScrollState(max > 0 ? window.scrollY / max : 0, 0, window.scrollY);
   }, { passive: true });
 }
+
+document.querySelector('.chrome__logo')?.addEventListener('click', (e) => {
+  if (!lenis) return;
+  e.preventDefault();
+  lenis.scrollTo(0, { duration: 1.9, easing: (x) => 1 - Math.pow(1 - x, 4) });
+});
 
 /* ---------- mouse parallax ---------- */
 
@@ -379,11 +394,38 @@ window.addEventListener('pointermove', (e) => {
 
 const clock = new THREE.Clock();
 let painted = false;
+let running = true;
+let rafId = null;
+
+// A background tab still ran the full bloom chain sixty times a second.
+document.addEventListener('visibilitychange', () => {
+  running = !document.hidden;
+  if (running && rafId === null) { clock.getDelta(); rafId = requestAnimationFrame(tick); }
+});
+
+// One-way quality shed. Measured over a window rather than per frame, and
+// never reversed, so it cannot oscillate between settings.
+let probeFrames = 0, probeTime = 0, degraded = false;
+function watchFrameRate(dt) {
+  if (degraded || dt <= 0) return;
+  probeFrames++; probeTime += dt;
+  if (probeTime < 2.5) return;
+  const fps = probeFrames / probeTime;
+  probeFrames = 0; probeTime = 0;
+  if (fps >= 45) return;
+  degraded = true;
+  bloom.enabled = false;
+  renderer.setPixelRatio(1);
+  composer.setSize(window.innerWidth, window.innerHeight);
+}
 
 function tick(time) {
+  if (!running) { rafId = null; return; }
   lenis?.raf(time);                                  // Lenis needs ms timestamps
 
-  const t = clock.getElapsedTime();
+  const dt = clock.getDelta();
+  const t = clock.elapsedTime;
+  watchFrameRate(dt);
   uniforms.uTime.value = reducedMotion ? 0 : t;
 
   scrollCurrent += (scrollTarget - scrollCurrent) * 0.06;
@@ -392,7 +434,16 @@ function tick(time) {
   velSmooth += (velTarget - velSmooth) * 0.08;
   velTarget *= 0.92;                                 // decay when scroll events stop
   uniforms.uVel.value = velSmooth;
-  bloom.strength = 0.9 + velSmooth * 0.7;            // bloom pumps with scroll speed
+  if (bloom.enabled) bloom.strength = 0.9 + velSmooth * 0.7;   // bloom pumps with scroll speed
+
+  // Lenis, made visible: the indicator line doubles as a velocity meter and
+  // the progress bar's glow tracks the same number the shader is reading.
+  if (velBar) {
+    const v = Math.min(1, velRaw / 45);
+    velBar.style.transform = `scaleY(${v.toFixed(3)})`;
+    progressBar.style.boxShadow = `0 0 ${(12 + v * 26).toFixed(0)}px rgba(200, 255, 0, ${(0.5 + v * 0.45).toFixed(2)})`;
+  }
+  velRaw *= 0.9;
 
   mouse.x += (mouse.tx - mouse.x) * 0.04;
   mouse.y += (mouse.ty - mouse.y) * 0.04;
@@ -406,7 +457,7 @@ function tick(time) {
 
   composer.render();
   if (!painted) { painted = true; window.__loader?.step('frame'); }
-  requestAnimationFrame(tick);
+  rafId = requestAnimationFrame(tick);
 }
 
 /* ---------- resize ---------- */
@@ -502,13 +553,24 @@ if (!reducedMotion && parallaxItems.length) {
   parallaxItems.forEach((i) => io.observe(i.el));
 }
 
+function measureParallax() {
+  const y = window.scrollY;
+  for (const item of parallaxItems) {
+    item.el.style.transform = '';
+    const r = item.el.getBoundingClientRect();
+    item.docTop = r.top + y;
+    item.half = r.height / 2;
+  }
+}
+measureParallax();
+window.addEventListener('resize', measureParallax);
+
 function updateParallax() {
   if (reducedMotion) return;
   const mid = window.innerHeight / 2;
   for (const item of parallaxItems) {
-    if (!item.on) continue;
-    const r = item.el.getBoundingClientRect();
-    const offset = (r.top + r.height / 2 - mid) * item.rate;
+    if (!item.on || item.docTop === undefined) continue;
+    const offset = (item.docTop + item.half - scrollY - mid) * item.rate;
     item.el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
   }
 }
@@ -578,7 +640,7 @@ console.log(
   'font-family:monospace;color:#8a8d86'
 );
 
-requestAnimationFrame(tick);
+rafId = requestAnimationFrame(tick);
 
 // after the loop is running, so decoding never delays first paint
 loadPortrait();
