@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=8" />
+  <link rel="stylesheet" href="css/style.css?v=9" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -144,6 +144,7 @@
         "speakable": {
           "@type": "SpeakableSpecification",
           "cssSelector": [
+            ".hero-intro",
             ".lede",
             ".panel__title",
             ".hero-sub"
@@ -458,14 +459,13 @@
 
     <!-- 01 / HERO -->
     <section class="panel panel--hero" id="hero" data-shape="0">
-      <p class="kicker reveal">PRANAV PRADEESH — KERALA, INDIA — CODING SINCE AGE 12</p>
+      <p class="kicker reveal">BUILD. BREAK. LEARN. — CODING SINCE AGE 12</p>
       <h1 class="hero-title">
-        <span class="hero-title__line reveal">BUILD<span class="accent">.</span></span>
-        <span class="hero-title__line hero-title__line--accent reveal">BREAK<span class="accent">.</span></span>
-        <span class="hero-title__line reveal">LEARN<span class="accent">.</span></span>
-        <span class="sr-only">Pranav Pradeesh — student developer from Kerala, India, working across web, IoT and backend.</span>
+        <span class="hero-title__line reveal">PRANAV</span>
+        <span class="hero-title__line accent reveal">PRADEESH.</span>
       </h1>
-      <p class="hero-sub reveal">Student developer — Web · IoT · Backend — I build stuff to learn how things work</p>
+      <p class="hero-intro reveal">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. I build across web, IoT and backend — an online exam platform, an Arduino gas-leak detector, and my school's website, which is live and in daily use. Started at 12, still learning by building.</p>
+      <p class="hero-sub reveal">Open to internships — Web · IoT · Backend</p>
       <div class="scroll-hint reveal">
         <span>SCROLL</span>
         <div class="scroll-hint__track"><div class="scroll-hint__thumb"></div></div>

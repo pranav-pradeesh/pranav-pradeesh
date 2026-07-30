@@ -268,7 +268,7 @@ main { position: relative; z-index: 10; }
   font-weight: 800;
   /* vw cap: the rem floor grows with the user's default font size and at
      24px root it pushed BUILD. past the right edge of a 390px screen. */
-  font-size: min(clamp(2.6rem, 8.6vw, 8.5rem), 15vw);
+  font-size: min(clamp(2.6rem, 8.6vw, 8.5rem), 9.2vw);
   line-height: 0.95;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -283,8 +283,15 @@ main { position: relative; z-index: 10; }
 @supports not (-webkit-text-stroke: 1px currentColor) {
   .hero-title__line--accent { color: var(--acid); }
 }
+.hero-intro {
+  margin-top: 30px;
+  max-width: 58ch;
+  font-size: clamp(0.86rem, 1.15vw, 1rem);
+  line-height: 1.8;
+  color: var(--bone-dim);
+}
 .hero-sub {
-  margin-top: 36px;
+  margin-top: 22px;
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   color: var(--bone-dim);
@@ -381,9 +388,11 @@ main { position: relative; z-index: 10; }
    help, so only the small type gets a scrim. (.scroll-hint is already
    absolutely positioned, so it must not be given position: relative.) */
 .panel--hero .kicker,
+.hero-intro,
 .hero-sub { position: relative; }
 
 .panel--hero .kicker::before,
+.hero-intro::before,
 .hero-sub::before,
 .scroll-hint::before {
   content: '';
@@ -398,6 +407,7 @@ main { position: relative; z-index: 10; }
 
 /* Second line of defence where the scrim feathers out */
 .panel__body p,
+.hero-intro,
 .hero-sub,
 .kicker,
 .skill-group li,
@@ -645,12 +655,13 @@ main { position: relative; z-index: 10; }
   .chrome { position: static !important; mix-blend-mode: normal !important; padding: 0 0 12pt !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .panel__body::before, .contact-title::before, .contact-actions::before,
-  .faq::before, .hero-title::before, .kicker::before, .hero-sub::before { display: none !important; }
+  .faq::before, .hero-title::before, .kicker::before,
+  .hero-intro::before, .hero-sub::before { display: none !important; }
   .hero-title, .panel__title, .contact-title, .project__name, .chrome__logo { color: #000 !important; }
   .hero-title__line--accent { -webkit-text-stroke: 0 !important; color: #000 !important; }
   .accent, .panel__index, .stat__num, .skill-group h4, .faq__title, .project__tag { color: #000 !important; }
   .panel__body p, .project__desc, .skill-group li, .faq__a, .kicker,
-  .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
+  .hero-intro, .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
   .project { background: none !important; backdrop-filter: none !important; border: 1pt solid #999; }
   .projects { background: none !important; gap: 10pt; }
   .contact-link { background: none !important; color: #000 !important; border: 1pt solid #000; }
