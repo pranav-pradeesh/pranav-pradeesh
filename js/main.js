@@ -402,9 +402,22 @@ window.addEventListener('pointermove', (e) => {
 const distortEls = [...document.querySelectorAll('[data-distort]')];
 let skew = 0, skewApplied = null;
 
+/* A wheel tick reports 40-160 px/s; a momentum fling on a phone reports
+   thousands, so the same curve that reads as a hint on a desktop pins the type
+   at full tilt for most of a swipe. The low end is shared, so the fix is a
+   lower ceiling on touch rather than a smaller multiplier. */
+const SKEW_CAP = window.matchMedia('(pointer: coarse)').matches ? 1.2 : 2.6;
+
 function updateDistortion() {
   if (reducedMotion || !distortEls.length) return;
-  const target = THREE.MathUtils.clamp(velSigned * 0.010, -2.6, 2.6);
+  if (degraded) {                                   // struggling for frames already
+    if (skewApplied !== null) {
+      for (const el of distortEls) el.style.transform = '';
+      skewApplied = null;
+    }
+    return;
+  }
+  const target = THREE.MathUtils.clamp(velSigned * 0.010, -SKEW_CAP, SKEW_CAP);
   skew += (target - skew) * 0.11;
 
   const settled = Math.abs(skew) < 0.015;
