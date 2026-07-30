@@ -235,7 +235,24 @@ body {
   letter-spacing: 0.15em;
 }
 .section-indicator__num { color: var(--acid); }
-.section-indicator__line { width: 1px; height: 70px; background: var(--line); }
+/* The indicator line doubles as a live readout of Lenis's scroll velocity —
+   the same number the shader reads for turbulence, made visible. */
+.section-indicator__line {
+  display: block;
+  width: 1px; height: 70px;
+  background: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.section-indicator__vel {
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 100%;
+  background: var(--acid);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  will-change: transform;
+}
 .section-indicator__total { color: var(--bone-mute); }
 
 /* ============ PANELS ============ */
