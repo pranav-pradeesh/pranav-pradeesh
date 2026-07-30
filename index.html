@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=11" />
+  <link rel="stylesheet" href="css/style.css?v=12" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -502,6 +502,8 @@
 
   <!-- ============ GRAIN OVERLAY ============ -->
   <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
 
   <!-- ============ SCROLL PROGRESS ============ -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -538,8 +540,8 @@
     <section class="panel panel--hero" id="hero" data-shape="0">
       <p class="kicker reveal">BUILD. BREAK. LEARN. — CODING SINCE AGE 12</p>
       <h1 class="hero-title">
-        <span class="hero-title__line reveal">PRANAV</span>
-        <span class="hero-title__line accent reveal">PRADEESH.</span>
+        <span class="hero-title__line reveal reveal--mask"><span>PRANAV</span></span>
+        <span class="hero-title__line accent reveal reveal--mask"><span>PRADEESH.</span></span>
       </h1>
       <p class="hero-intro reveal">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. I build across web, IoT and backend — an online exam platform, an Arduino gas-leak detector, and my school's website, which is live and in daily use. Started at 12, still learning by building.</p>
       <p class="hero-sub reveal">Open to internships — Web · IoT · Backend</p>
@@ -552,9 +554,9 @@
     <!-- 02 / ABOUT -->
     <section class="panel" id="about" data-shape="1">
       <div class="panel__grid">
-        <div class="panel__head">
+        <div class="panel__head" data-parallax="0.06">
           <span class="panel__index">02</span>
-          <h2 class="panel__title reveal">LEARN<br /><span class="accent">BY</span><br />BUILDING</h2>
+          <h2 class="panel__title reveal reveal--mask"><span>LEARN<br /><span class="accent">BY</span><br />BUILDING</span></h2>
           <figure class="portrait reveal">
             <picture>
               <source srcset="img/pranav-pradeesh.webp" type="image/webp" />
@@ -579,9 +581,9 @@
 
     <!-- 03 / PROJECTS -->
     <section class="panel" id="projects" data-shape="2">
-      <div class="panel__head panel__head--wide">
+      <div class="panel__head panel__head--wide" data-parallax="0.04">
         <span class="panel__index">03</span>
-        <h2 class="panel__title reveal">SELECTED<br /><span class="accent">WORK</span></h2>
+        <h2 class="panel__title reveal reveal--mask"><span>SELECTED<br /><span class="accent">WORK</span></span></h2>
       </div>
       <div class="projects">
         <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener" aria-label="ExamForge — online exam and quiz platform for teachers and students. Source on GitHub.">
@@ -618,9 +620,9 @@
     <!-- 04 / SKILLS -->
     <section class="panel" id="skills" data-shape="3">
       <div class="panel__grid">
-        <div class="panel__head">
+        <div class="panel__head" data-parallax="0.06">
           <span class="panel__index">04</span>
-          <h2 class="panel__title reveal">TOOL<br /><span class="accent">CHAIN</span></h2>
+          <h2 class="panel__title reveal reveal--mask"><span>TOOL<br /><span class="accent">CHAIN</span></span></h2>
         </div>
         <div class="panel__body">
           <div class="skill-group reveal">
@@ -646,7 +648,7 @@
     <!-- 05 / CONTACT -->
     <section class="panel panel--contact" id="contact" data-shape="4">
       <span class="panel__index">05</span>
-      <h2 class="contact-title reveal">LET'S BUILD<br />SOMETHING <span class="accent">REAL</span></h2>
+      <h2 class="contact-title reveal reveal--mask"><span>LET'S BUILD<br />SOMETHING <span class="accent">REAL</span></span></h2>
       <div class="contact-actions reveal">
         <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com" data-magnetic>
           pranavpradeesh09@gmail.com

@@ -402,6 +402,8 @@ function tick(time) {
   rollSmooth += (rollTarget - rollSmooth) * 0.07;
   camera.rotation.z += rollSmooth;                   // subtle banking on fast scroll
 
+  updateParallax();
+
   composer.render();
   if (!painted) { painted = true; window.__loader?.step('frame'); }
   requestAnimationFrame(tick);
@@ -476,6 +478,40 @@ document.querySelectorAll('.project').forEach((card) => {
     card.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
   });
 });
+
+/* ---------- scroll-linked parallax ----------
+   The head column drifts against the body column as the panel passes, which
+   is what gives the scroll its depth. Rect reads are cheap at this count and
+   only happen while the element is on screen; transforms are composited. */
+
+const parallaxItems = [...document.querySelectorAll('[data-parallax]')].map((el) => ({
+  el,
+  rate: parseFloat(el.dataset.parallax) || 0.05,
+  on: false,
+}));
+
+if (!reducedMotion && parallaxItems.length) {
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      const item = parallaxItems.find((i) => i.el === e.target);
+      if (item) item.on = e.isIntersecting;
+      if (item && !e.isIntersecting) item.el.style.transform = '';
+    }),
+    { rootMargin: '10% 0px' }
+  );
+  parallaxItems.forEach((i) => io.observe(i.el));
+}
+
+function updateParallax() {
+  if (reducedMotion) return;
+  const mid = window.innerHeight / 2;
+  for (const item of parallaxItems) {
+    if (!item.on) continue;
+    const r = item.el.getBoundingClientRect();
+    const offset = (r.top + r.height / 2 - mid) * item.rate;
+    item.el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+  }
+}
 
 /* ---------- scroll reveals ---------- */
 
