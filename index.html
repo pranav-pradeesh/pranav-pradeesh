@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=8" />
+  <link rel="stylesheet" href="css/style.css?v=12" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -79,9 +79,80 @@
     // run. The watchdog undoes it if the module never boots (blocked CDN,
     // no-JS crawler), so the page never renders as an empty black screen.
     document.documentElement.classList.add('js');
+
+    /* Real loader. The bar reports milestones the engine actually reaches,
+       weighted by how long each genuinely takes, instead of a timer counting
+       up on its own schedule. It lives here rather than in the module so it
+       still functions when the module is the thing that fails to arrive. */
+    window.__loader = (function () {
+      var WEIGHT = { modules: 45, fonts: 10, geometry: 20, shaders: 15, frame: 10 };
+      var LABEL = {
+        modules:  'LOADING ENGINE',
+        fonts:    'LOADING TYPEFACES',
+        geometry: 'BUILDING PARTICLE FIELD',
+        shaders:  'COMPILING SHADERS',
+        frame:    'READY'
+      };
+      var ORDER = ['modules', 'fonts', 'geometry', 'shaders', 'frame'];
+      var done = {}, settled = false;
+
+      function el(id) { return document.getElementById(id); }
+      function paint(pct, label) {
+        var f = el('loaderFill'), p = el('loaderPct'), l = el('loaderLabel');
+        if (f) f.style.width = pct + '%';
+        if (p) p.textContent = Math.round(pct) + '%';
+        if (l && label) l.textContent = label;
+      }
+      function reached() {
+        var t = 0;
+        for (var k in WEIGHT) { if (done[k]) t += WEIGHT[k]; }
+        return t;
+      }
+      function pending() {
+        for (var i = 0; i < ORDER.length; i++) { if (!done[ORDER[i]]) return LABEL[ORDER[i]]; }
+        return LABEL.frame;
+      }
+      function dismiss(delay) {
+        var lo = el('loader');
+        if (lo) setTimeout(function () { lo.classList.add('done'); }, delay);
+      }
+      return {
+        step: function (name) {
+          if (settled || done[name]) return;
+          done[name] = true;
+          paint(reached(), pending());
+          if (name === 'frame' || reached() >= 100) { settled = true; paint(100, LABEL.frame); dismiss(200); }
+        },
+        // Nobody should sit behind a loading screen because a CDN is slow.
+        release: function () {
+          if (settled) return;
+          settled = true;
+          dismiss(0);
+        },
+        fail: function (msg) {
+          if (settled) return;
+          settled = true;
+          paint(100, msg);
+          dismiss(1000);
+        }
+      };
+    })();
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { window.__loader.step('fonts'); });
+    } else {
+      window.addEventListener('load', function () { window.__loader.step('fonts'); });
+    }
+
     setTimeout(function () {
-      if (!window.__obsBooted) document.documentElement.classList.remove('js');
+      if (!window.__obsBooted) {
+        document.documentElement.classList.remove('js');
+        window.__loader.fail('PARTICLE ENGINE UNAVAILABLE - SHOWING PAGE');
+      }
     }, 5000);
+
+    // Hard ceiling: reveal the page even if the engine is still working.
+    setTimeout(function () { window.__loader.release(); }, 6000);
   </script>
 
   <script type="importmap">
@@ -144,6 +215,7 @@
         "speakable": {
           "@type": "SpeakableSpecification",
           "cssSelector": [
+            ".hero-intro",
             ".lede",
             ".panel__title",
             ".hero-sub"
@@ -158,7 +230,13 @@
         "givenName": "Pranav",
         "familyName": "Pradeesh",
         "url": "https://pranavpradeesh.dev/",
-        "image": "https://pranavpradeesh.dev/og-image.png",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://pranavpradeesh.dev/img/pranav-pradeesh.jpg",
+          "width": 720,
+          "height": 900,
+          "caption": "Pranav Pradeesh"
+        },
         "jobTitle": "Computer Science Student and Developer",
         "description": "First-year B.Tech Computer Science student at NCERC Pambady, Kerala, India, graduating in 2030. Started coding at 12 and builds across web, IoT and backend — ExamForge, Gas Guard, the NMHSS Thirunavaya school website and Orvaya. Currently looking for an internship.",
         "email": "mailto:pranavpradeesh09@gmail.com",
@@ -413,7 +491,7 @@
   <!-- ============ LOADER ============ -->
   <div class="loader" id="loader">
     <div class="loader__inner">
-      <span class="loader__label">INITIALIZING PARTICLE FIELD</span>
+      <span class="loader__label" id="loaderLabel">STARTING</span>
       <div class="loader__bar"><div class="loader__fill" id="loaderFill"></div></div>
       <span class="loader__pct" id="loaderPct">0%</span>
     </div>
@@ -424,6 +502,8 @@
 
   <!-- ============ GRAIN OVERLAY ============ -->
   <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
 
   <!-- ============ SCROLL PROGRESS ============ -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -458,14 +538,13 @@
 
     <!-- 01 / HERO -->
     <section class="panel panel--hero" id="hero" data-shape="0">
-      <p class="kicker reveal">PRANAV PRADEESH — KERALA, INDIA — CODING SINCE AGE 12</p>
+      <p class="kicker reveal">BUILD. BREAK. LEARN. — CODING SINCE AGE 12</p>
       <h1 class="hero-title">
-        <span class="hero-title__line reveal">BUILD<span class="accent">.</span></span>
-        <span class="hero-title__line hero-title__line--accent reveal">BREAK<span class="accent">.</span></span>
-        <span class="hero-title__line reveal">LEARN<span class="accent">.</span></span>
-        <span class="sr-only">Pranav Pradeesh — student developer from Kerala, India, working across web, IoT and backend.</span>
+        <span class="hero-title__line reveal reveal--mask"><span>PRANAV</span></span>
+        <span class="hero-title__line accent reveal reveal--mask"><span>PRADEESH.</span></span>
       </h1>
-      <p class="hero-sub reveal">Student developer — Web · IoT · Backend — I build stuff to learn how things work</p>
+      <p class="hero-intro reveal">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. I build across web, IoT and backend — an online exam platform, an Arduino gas-leak detector, and my school's website, which is live and in daily use. Started at 12, still learning by building.</p>
+      <p class="hero-sub reveal">Open to internships — Web · IoT · Backend</p>
       <div class="scroll-hint reveal">
         <span>SCROLL</span>
         <div class="scroll-hint__track"><div class="scroll-hint__thumb"></div></div>
@@ -475,9 +554,17 @@
     <!-- 02 / ABOUT -->
     <section class="panel" id="about" data-shape="1">
       <div class="panel__grid">
-        <div class="panel__head">
+        <div class="panel__head" data-parallax="0.06">
           <span class="panel__index">02</span>
-          <h2 class="panel__title reveal">LEARN<br /><span class="accent">BY</span><br />BUILDING</h2>
+          <h2 class="panel__title reveal reveal--mask"><span>LEARN<br /><span class="accent">BY</span><br />BUILDING</span></h2>
+          <figure class="portrait reveal">
+            <picture>
+              <source srcset="img/pranav-pradeesh.webp" type="image/webp" />
+              <img src="img/pranav-pradeesh.jpg" width="720" height="900"
+                   alt="Pranav Pradeesh, a first-year Computer Science student from Kerala, India"
+                   loading="lazy" decoding="async" />
+            </picture>
+          </figure>
         </div>
         <div class="panel__body">
           <p class="lede reveal">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. Got into coding at 12 and never stopped — IoT, web, and backend, mostly figured out as I go.</p>
@@ -494,9 +581,9 @@
 
     <!-- 03 / PROJECTS -->
     <section class="panel" id="projects" data-shape="2">
-      <div class="panel__head panel__head--wide">
+      <div class="panel__head panel__head--wide" data-parallax="0.04">
         <span class="panel__index">03</span>
-        <h2 class="panel__title reveal">SELECTED<br /><span class="accent">WORK</span></h2>
+        <h2 class="panel__title reveal reveal--mask"><span>SELECTED<br /><span class="accent">WORK</span></span></h2>
       </div>
       <div class="projects">
         <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener" aria-label="ExamForge — online exam and quiz platform for teachers and students. Source on GitHub.">
@@ -533,9 +620,9 @@
     <!-- 04 / SKILLS -->
     <section class="panel" id="skills" data-shape="3">
       <div class="panel__grid">
-        <div class="panel__head">
+        <div class="panel__head" data-parallax="0.06">
           <span class="panel__index">04</span>
-          <h2 class="panel__title reveal">TOOL<br /><span class="accent">CHAIN</span></h2>
+          <h2 class="panel__title reveal reveal--mask"><span>TOOL<br /><span class="accent">CHAIN</span></span></h2>
         </div>
         <div class="panel__body">
           <div class="skill-group reveal">
@@ -561,7 +648,7 @@
     <!-- 05 / CONTACT -->
     <section class="panel panel--contact" id="contact" data-shape="4">
       <span class="panel__index">05</span>
-      <h2 class="contact-title reveal">LET'S BUILD<br />SOMETHING <span class="accent">REAL</span></h2>
+      <h2 class="contact-title reveal reveal--mask"><span>LET'S BUILD<br />SOMETHING <span class="accent">REAL</span></span></h2>
       <div class="contact-actions reveal">
         <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com" data-magnetic>
           pranavpradeesh09@gmail.com

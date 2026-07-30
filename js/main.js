@@ -11,8 +11,10 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-// Imports resolved — tells the <head> watchdog the page can stay in JS mode.
+// Imports resolved — the heaviest download on the page is done.
 window.__obsBooted = true;
+document.documentElement.classList.add('js');   // heal an early watchdog trip
+window.__loader?.step('modules');
 
 const COUNT = window.matchMedia('(max-width: 860px)').matches ? 7000 : 15000;
 const SHAPES = 5;
@@ -111,6 +113,74 @@ function makeHelix() {
   return arr;
 }
 
+/* ---------- image shape ----------------------------------------------------
+   Rearranges the field into a picture: sample the source image's luminance and
+   scatter particles where it is bright. Colour is untouched — the fragment
+   shader tints by aRand, not by the image — so the palette stays exactly as it
+   is. Swap PORTRAIT_SRC for a headshot and it will form that instead; any
+   high-contrast image works, subject over a dark background reads best.
+   -------------------------------------------------------------------------- */
+
+const PORTRAIT_SRC  = 'img/particle-source.jpg';
+const PORTRAIT_SLOT = 4;      // which morph target to occupy: 0 hero .. 4 contact
+const PORTRAIT_SPAN = 3.6;    // world half-width, matched to the other shapes
+
+function shapeFromImage(img, count) {
+  const S = 200;
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = S;
+  const c2d = cv.getContext('2d', { willReadFrequently: true });
+
+  // letterbox into the square so the picture is not stretched
+  const scale = Math.min(S / img.width, S / img.height);
+  const w = img.width * scale, h = img.height * scale;
+  c2d.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
+  const px = c2d.getImageData(0, 0, S, S).data;
+
+  // cumulative luminance: one pass, then a binary search per particle, so cost
+  // is O(S^2 + count log S^2) rather than rejection-sampling a dark image
+  const cdf = new Float32Array(S * S);
+  let total = 0;
+  for (let i = 0; i < S * S; i++) {
+    const a = px[i * 4 + 3] / 255;
+    let lum = (0.2126 * px[i * 4] + 0.7152 * px[i * 4 + 1] + 0.0722 * px[i * 4 + 2]) / 255 * a;
+    lum = lum < 0.12 ? 0 : Math.pow(lum, 1.2);   // drop the background, keep midtones
+    total += lum;
+    cdf[i] = total;
+  }
+  if (total <= 0) return null;                    // nothing bright enough to form
+
+  const arr = new Float32Array(count * 3);
+  for (let n = 0; n < count; n++) {
+    let lo = 0, hi = S * S - 1;
+    const target = Math.random() * total;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (cdf[mid] < target) lo = mid + 1; else hi = mid; }
+    const gx = lo % S, gy = (lo / S) | 0;
+    const u = (gx + Math.random()) / S - 0.5;
+    const v = (gy + Math.random()) / S - 0.5;
+    arr[n * 3]     = u * 2 * PORTRAIT_SPAN;
+    arr[n * 3 + 1] = -v * 2 * PORTRAIT_SPAN;      // canvas y grows downward
+    arr[n * 3 + 2] = (Math.random() - 0.5) * 0.45; // a little relief, not a flat plane
+  }
+  return arr;
+}
+
+// Loaded after first paint: the field morphs into it on the way down, and if
+// the image is missing or unreadable the original shape simply stays.
+function loadPortrait() {
+  const img = new Image();
+  img.decoding = 'async';
+  img.onload = () => {
+    const arr = shapeFromImage(img, COUNT);
+    if (!arr) return;
+    const attr = geometry.getAttribute(`aShape${PORTRAIT_SLOT}`);
+    attr.array.set(arr);
+    attr.needsUpdate = true;
+  };
+  img.onerror = () => {};
+  img.src = PORTRAIT_SRC;
+}
+
 /* ---------- scene ---------- */
 
 const canvas = document.getElementById('scene');
@@ -135,6 +205,7 @@ for (let s = 0; s < SHAPES; s++) {
 const rand = new Float32Array(COUNT);
 for (let i = 0; i < COUNT; i++) rand[i] = Math.random();
 geometry.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
+window.__loader?.step('geometry');
 
 /* ---------- shader ---------- */
 
@@ -242,6 +313,11 @@ const bloom = new UnrealBloomPass(
 );
 composer.addPass(bloom);
 
+// Compile before the first frame so the shader cost lands inside the loader
+// instead of stalling the reveal.
+renderer.compile(scene, camera);
+window.__loader?.step('shaders');
+
 /* ============================================================
    LENIS — smooth scroll drives everything
    ============================================================ */
@@ -302,6 +378,7 @@ window.addEventListener('pointermove', (e) => {
 /* ---------- render loop (single rAF drives Lenis + GL) ---------- */
 
 const clock = new THREE.Clock();
+let painted = false;
 
 function tick(time) {
   lenis?.raf(time);                                  // Lenis needs ms timestamps
@@ -325,7 +402,10 @@ function tick(time) {
   rollSmooth += (rollTarget - rollSmooth) * 0.07;
   camera.rotation.z += rollSmooth;                   // subtle banking on fast scroll
 
+  updateParallax();
+
   composer.render();
+  if (!painted) { painted = true; window.__loader?.step('frame'); }
   requestAnimationFrame(tick);
 }
 
@@ -342,21 +422,10 @@ window.addEventListener('resize', () => {
    DOM LAYER — loader, cursor, reveals, counters, indicator
    ============================================================ */
 
-/* ---------- loader (simulated progress, resolves on first frames) ---------- */
-
-const loader = document.getElementById('loader');
-const loaderFill = document.getElementById('loaderFill');
-const loaderPct = document.getElementById('loaderPct');
-let progress = 0;
-const loadInterval = setInterval(() => {
-  progress = Math.min(progress + Math.random() * 22, 100);
-  loaderFill.style.width = `${progress}%`;
-  loaderPct.textContent = `${Math.round(progress)}%`;
-  if (progress >= 100) {
-    clearInterval(loadInterval);
-    setTimeout(() => loader.classList.add('done'), 250);
-  }
-}, 120);
+/* ---------- loader ----------
+   Progress is reported from the real milestones above and finished by the
+   first painted frame; the controller itself lives in <head> so it survives
+   this module failing to load. */
 
 /* ---------- custom cursor ---------- */
 
@@ -409,6 +478,40 @@ document.querySelectorAll('.project').forEach((card) => {
     card.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
   });
 });
+
+/* ---------- scroll-linked parallax ----------
+   The head column drifts against the body column as the panel passes, which
+   is what gives the scroll its depth. Rect reads are cheap at this count and
+   only happen while the element is on screen; transforms are composited. */
+
+const parallaxItems = [...document.querySelectorAll('[data-parallax]')].map((el) => ({
+  el,
+  rate: parseFloat(el.dataset.parallax) || 0.05,
+  on: false,
+}));
+
+if (!reducedMotion && parallaxItems.length) {
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      const item = parallaxItems.find((i) => i.el === e.target);
+      if (item) item.on = e.isIntersecting;
+      if (item && !e.isIntersecting) item.el.style.transform = '';
+    }),
+    { rootMargin: '10% 0px' }
+  );
+  parallaxItems.forEach((i) => io.observe(i.el));
+}
+
+function updateParallax() {
+  if (reducedMotion) return;
+  const mid = window.innerHeight / 2;
+  for (const item of parallaxItems) {
+    if (!item.on) continue;
+    const r = item.el.getBoundingClientRect();
+    const offset = (r.top + r.height / 2 - mid) * item.rate;
+    item.el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+  }
+}
 
 /* ---------- scroll reveals ---------- */
 
@@ -476,3 +579,6 @@ console.log(
 );
 
 requestAnimationFrame(tick);
+
+// after the loop is running, so decoding never delays first paint
+loadPortrait();

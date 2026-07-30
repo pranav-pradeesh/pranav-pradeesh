@@ -268,7 +268,7 @@ main { position: relative; z-index: 10; }
   font-weight: 800;
   /* vw cap: the rem floor grows with the user's default font size and at
      24px root it pushed BUILD. past the right edge of a 390px screen. */
-  font-size: min(clamp(2.6rem, 8.6vw, 8.5rem), 15vw);
+  font-size: min(clamp(2.6rem, 8.6vw, 8.5rem), 9.2vw);
   line-height: 0.95;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -283,8 +283,15 @@ main { position: relative; z-index: 10; }
 @supports not (-webkit-text-stroke: 1px currentColor) {
   .hero-title__line--accent { color: var(--acid); }
 }
+.hero-intro {
+  margin-top: 30px;
+  max-width: 58ch;
+  font-size: clamp(0.86rem, 1.15vw, 1rem);
+  line-height: 1.8;
+  color: var(--bone-dim);
+}
 .hero-sub {
-  margin-top: 36px;
+  margin-top: 22px;
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   color: var(--bone-dim);
@@ -348,6 +355,21 @@ main { position: relative; z-index: 10; }
 }
 .panel__head--wide { margin-bottom: 70px; }
 
+/* --- portrait ---
+   Sits under the section title in the left column, which is the standard
+   editorial arrangement and needs no change to the grid. The backdrop is cut
+   out and feathered so the figure emerges from the page rather than sitting
+   in a bright rectangle, matching the particle portrait it morphs into. */
+.portrait {
+  margin-top: 36px;
+  width: min(320px, 100%);
+}
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .panel__body { display: flex; flex-direction: column; gap: 26px; position: relative; }
 .panel__body p { max-width: 56ch; line-height: 1.85; font-size: 0.92rem; color: var(--bone-dim); }
 .lede { color: var(--bone) !important; font-size: 1.08rem !important; }
@@ -381,9 +403,11 @@ main { position: relative; z-index: 10; }
    help, so only the small type gets a scrim. (.scroll-hint is already
    absolutely positioned, so it must not be given position: relative.) */
 .panel--hero .kicker,
+.hero-intro,
 .hero-sub { position: relative; }
 
 .panel--hero .kicker::before,
+.hero-intro::before,
 .hero-sub::before,
 .scroll-hint::before {
   content: '';
@@ -398,6 +422,7 @@ main { position: relative; z-index: 10; }
 
 /* Second line of defence where the scrim feathers out */
 .panel__body p,
+.hero-intro,
 .hero-sub,
 .kicker,
 .skill-group li,
@@ -446,6 +471,17 @@ main { position: relative; z-index: 10; }
   transition: opacity 0.4s;
 }
 .project:hover::before { opacity: 1; }
+.project::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: var(--acid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-out);
+}
+.project:hover::after { transform: scaleX(1); }
 .project__tag {
   font-size: 0.58rem;
   letter-spacing: 0.3em;
@@ -482,7 +518,9 @@ main { position: relative; z-index: 10; }
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   color: rgba(232, 230, 223, 0.62);   /* 3.4:1 at 0.42 — under AA */
+  transition: transform 0.45s var(--ease-out), color 0.3s;
 }
+.project:hover .project__num { transform: translateX(-8px); color: var(--acid); }
 
 /* --- skills --- */
 #skills .panel__body {
@@ -638,19 +676,23 @@ main { position: relative; z-index: 10; }
 /* A recruiter who prints or saves the page as PDF should get the words, not
    a black rectangle with a WebGL canvas in it. */
 @media print {
-  #scene, .grain, .cursor, .cursor-ring, .loader,
+  #scene, .grain, .vignette, .frame, .cursor, .cursor-ring, .loader,
   .scroll-progress, .section-indicator, .scroll-hint { display: none !important; }
   html, body { background: #fff !important; color: #000 !important; cursor: auto !important; }
   .panel { min-height: auto !important; padding: 18pt 0 !important; page-break-inside: avoid; }
   .chrome { position: static !important; mix-blend-mode: normal !important; padding: 0 0 12pt !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
+  .reveal--mask { overflow: visible !important; }
+  .reveal--mask > span { transform: none !important; }
   .panel__body::before, .contact-title::before, .contact-actions::before,
-  .faq::before, .hero-title::before, .kicker::before, .hero-sub::before { display: none !important; }
+  .faq::before, .hero-title::before, .kicker::before,
+  .hero-intro::before, .hero-sub::before { display: none !important; }
   .hero-title, .panel__title, .contact-title, .project__name, .chrome__logo { color: #000 !important; }
   .hero-title__line--accent { -webkit-text-stroke: 0 !important; color: #000 !important; }
   .accent, .panel__index, .stat__num, .skill-group h4, .faq__title, .project__tag { color: #000 !important; }
   .panel__body p, .project__desc, .skill-group li, .faq__a, .kicker,
-  .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
+  .hero-intro, .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
+  .portrait { max-width: 150pt; }
   .project { background: none !important; backdrop-filter: none !important; border: 1pt solid #999; }
   .projects { background: none !important; gap: 10pt; }
   .contact-link { background: none !important; color: #000 !important; border: 1pt solid #000; }
@@ -671,6 +713,7 @@ main { position: relative; z-index: 10; }
    instead of an empty black screen. `.js` is set inline in <head> and pulled
    back off by a watchdog when the bundle fails. */
 html:not(.js) .reveal { opacity: 1; transform: none; }
+html:not(.js) .reveal--mask > span { transform: none; }
 html:not(.js) .loader { opacity: 0; visibility: hidden; }
 html:not(.js) #scene { display: none; }
 /* body hides the system cursor because JS draws a replacement. No JS means
@@ -687,6 +730,27 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+/* ============ CINEMATIC FRAME ============ */
+/* A viewfinder rather than a border: four corner marks and a soft vignette,
+   so the page reads as something being looked through. Both inert. */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+/* A hairline matte inset from the viewport edge. Corner brackets were the
+   first attempt, but the header sits at the same inset at most widths and
+   they collided with the logo; a continuous rule never can. */
+.frame {
+  position: fixed;
+  inset: clamp(8px, 1.2vw, 18px);
+  border: 1px solid rgba(232, 230, 223, 0.13);
+  z-index: 91;
+  pointer-events: none;
+}
+
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal {
   opacity: 0;
@@ -694,6 +758,25 @@ button:focus-visible {
   transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Masked reveal for display type: the line rises from behind its own edge
+   instead of fading in. The mask is the element's own overflow, so it needs
+   no extra wrapper beyond the inner span that does the moving. */
+.reveal--mask {
+  opacity: 1;
+  transform: none;
+  overflow: hidden;
+  padding-bottom: 0.08em;      /* room for descenders inside the clip */
+  margin-bottom: -0.08em;
+}
+.reveal--mask > span {
+  display: block;
+  transform: translateY(115%);
+  transition: transform 1.05s var(--ease-out);
+}
+.reveal--mask.visible > span { transform: translateY(0); }
+.reveal--mask.visible:nth-child(2) > span { transition-delay: 0.09s; }
+.reveal--mask.visible:nth-child(3) > span { transition-delay: 0.18s; }
 .reveal.visible:nth-child(2) { transition-delay: 0.08s; }
 .reveal.visible:nth-child(3) { transition-delay: 0.16s; }
 .reveal.visible:nth-child(4) { transition-delay: 0.24s; }
@@ -721,6 +804,8 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal--mask > span { transform: none !important; }
+  [data-parallax] { transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.001s !important;
     transition-duration: 0.001s !important;
