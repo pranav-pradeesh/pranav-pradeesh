@@ -700,6 +700,7 @@ main { position: relative; z-index: 10; }
   .chrome { position: static !important; mix-blend-mode: normal !important; padding: 0 0 12pt !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .reveal--mask { overflow: visible !important; }
+  [data-distort] { transform: none !important; }
   .reveal--mask > span { transform: none !important; }
   .panel__body::before, .contact-title::before, .contact-actions::before,
   .faq::before, .hero-title::before, .kicker::before,
@@ -768,6 +769,36 @@ button:focus-visible {
   pointer-events: none;
 }
 
+/* ============ ENTRANCE CHOREOGRAPHY ============
+   Without this the hero animates behind the loading screen and is already
+   settled by the time the curtain lifts. Hero content is held until the
+   loader adds .ready, then each element comes in on its own offset (--d).
+   Scoped to html.js so a no-JS render is never gated on a class that will
+   not arrive, and .ready is set by every dismissal path including the
+   failure and timeout ones. */
+html.js:not(.ready) .panel--hero .reveal.visible {
+  opacity: 0;
+  transform: translateY(40px);
+}
+html.js:not(.ready) .panel--hero .reveal--mask.visible {
+  opacity: 1;
+  transform: none;
+}
+html.js:not(.ready) .panel--hero .reveal--mask.visible > span { transform: translateY(115%); }
+html.js:not(.ready) .chrome,
+html.js:not(.ready) .frame,
+html.js:not(.ready) .section-indicator { opacity: 0; }
+
+.chrome, .frame, .section-indicator {
+  transition: opacity 1.1s var(--ease-out);
+}
+html.ready .chrome { transition-delay: 0.10s; }
+html.ready .frame { transition-delay: 0.02s; }
+html.ready .section-indicator { transition-delay: 0.85s; }
+
+html.ready .panel--hero .reveal.visible { transition-delay: var(--d, 0s); }
+html.ready .panel--hero .reveal--mask.visible > span { transition-delay: var(--d, 0s); }
+
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal {
   opacity: 0;
@@ -821,6 +852,7 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-distort] { transform: none !important; }
   .reveal--mask > span { transform: none !important; }
   [data-parallax] { transform: none !important; }
   *, *::before, *::after {

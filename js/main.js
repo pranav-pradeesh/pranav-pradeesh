@@ -336,6 +336,7 @@ const progressBar = document.getElementById('scrollProgress');
 
 let scrollY = 0;
 let velRaw = 0;
+let velSigned = 0;
 const velBar = document.getElementById('velBar');
 
 function applyScrollState(progress, velocity, position) {
@@ -343,6 +344,7 @@ function applyScrollState(progress, velocity, position) {
   velTarget = Math.min(Math.abs(velocity) * 0.02, 1.1);
   rollTarget = THREE.MathUtils.clamp(velocity * 0.001, -0.055, 0.055);
   velRaw = Math.abs(velocity);
+  velSigned = velocity;
   if (typeof position === 'number') scrollY = position;
   progressBar.style.transform = `scaleX(${progress})`;
 }
@@ -389,6 +391,31 @@ window.addEventListener('pointermove', (e) => {
   mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
   mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
 });
+
+/* ---------- scroll-velocity type distortion ----------
+   The display type leans and stretches with scroll speed, which is what makes
+   the smoothing legible rather than merely pleasant. Confined to five
+   headings rather than a wrapper around the page: skewing a container that
+   holds the blurred scrims would re-rasterise them every frame and undo the
+   work in the pass before this one. */
+
+const distortEls = [...document.querySelectorAll('[data-distort]')];
+let skew = 0, skewApplied = null;
+
+function updateDistortion() {
+  if (reducedMotion || !distortEls.length) return;
+  const target = THREE.MathUtils.clamp(velSigned * 0.010, -2.6, 2.6);
+  skew += (target - skew) * 0.11;
+
+  const settled = Math.abs(skew) < 0.015;
+  if (settled && skewApplied === null) return;          // idle: write nothing
+  const css = settled
+    ? ''
+    : `skewY(${skew.toFixed(2)}deg) scaleY(${(1 + Math.abs(skew) * 0.014).toFixed(4)})`;
+  if (css === skewApplied) return;                      // unchanged: write nothing
+  for (const el of distortEls) el.style.transform = css;
+  skewApplied = settled ? null : css;
+}
 
 /* ---------- render loop (single rAF drives Lenis + GL) ---------- */
 
@@ -444,6 +471,7 @@ function tick(time) {
     progressBar.style.boxShadow = `0 0 ${(12 + v * 26).toFixed(0)}px rgba(200, 255, 0, ${(0.5 + v * 0.45).toFixed(2)})`;
   }
   velRaw *= 0.9;
+  velSigned *= 0.9;
 
   mouse.x += (mouse.tx - mouse.x) * 0.04;
   mouse.y += (mouse.ty - mouse.y) * 0.04;
@@ -454,6 +482,7 @@ function tick(time) {
   camera.rotation.z += rollSmooth;                   // subtle banking on fast scroll
 
   updateParallax();
+  updateDistortion();
 
   composer.render();
   if (!painted) { painted = true; window.__loader?.step('frame'); }
