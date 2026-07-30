@@ -11,8 +11,10 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-// Imports resolved — tells the <head> watchdog the page can stay in JS mode.
+// Imports resolved — the heaviest download on the page is done.
 window.__obsBooted = true;
+document.documentElement.classList.add('js');   // heal an early watchdog trip
+window.__loader?.step('modules');
 
 const COUNT = window.matchMedia('(max-width: 860px)').matches ? 7000 : 15000;
 const SHAPES = 5;
@@ -135,6 +137,7 @@ for (let s = 0; s < SHAPES; s++) {
 const rand = new Float32Array(COUNT);
 for (let i = 0; i < COUNT; i++) rand[i] = Math.random();
 geometry.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
+window.__loader?.step('geometry');
 
 /* ---------- shader ---------- */
 
@@ -242,6 +245,11 @@ const bloom = new UnrealBloomPass(
 );
 composer.addPass(bloom);
 
+// Compile before the first frame so the shader cost lands inside the loader
+// instead of stalling the reveal.
+renderer.compile(scene, camera);
+window.__loader?.step('shaders');
+
 /* ============================================================
    LENIS — smooth scroll drives everything
    ============================================================ */
@@ -302,6 +310,7 @@ window.addEventListener('pointermove', (e) => {
 /* ---------- render loop (single rAF drives Lenis + GL) ---------- */
 
 const clock = new THREE.Clock();
+let painted = false;
 
 function tick(time) {
   lenis?.raf(time);                                  // Lenis needs ms timestamps
@@ -326,6 +335,7 @@ function tick(time) {
   camera.rotation.z += rollSmooth;                   // subtle banking on fast scroll
 
   composer.render();
+  if (!painted) { painted = true; window.__loader?.step('frame'); }
   requestAnimationFrame(tick);
 }
 
@@ -342,21 +352,10 @@ window.addEventListener('resize', () => {
    DOM LAYER — loader, cursor, reveals, counters, indicator
    ============================================================ */
 
-/* ---------- loader (simulated progress, resolves on first frames) ---------- */
-
-const loader = document.getElementById('loader');
-const loaderFill = document.getElementById('loaderFill');
-const loaderPct = document.getElementById('loaderPct');
-let progress = 0;
-const loadInterval = setInterval(() => {
-  progress = Math.min(progress + Math.random() * 22, 100);
-  loaderFill.style.width = `${progress}%`;
-  loaderPct.textContent = `${Math.round(progress)}%`;
-  if (progress >= 100) {
-    clearInterval(loadInterval);
-    setTimeout(() => loader.classList.add('done'), 250);
-  }
-}, 120);
+/* ---------- loader ----------
+   Progress is reported from the real milestones above and finished by the
+   first painted frame; the controller itself lives in <head> so it survives
+   this module failing to load. */
 
 /* ---------- custom cursor ---------- */
 
