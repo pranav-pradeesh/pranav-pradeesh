@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -230,7 +230,13 @@
         "givenName": "Pranav",
         "familyName": "Pradeesh",
         "url": "https://pranavpradeesh.dev/",
-        "image": "https://pranavpradeesh.dev/og-image.png",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://pranavpradeesh.dev/img/pranav-pradeesh.jpg",
+          "width": 720,
+          "height": 900,
+          "caption": "Pranav Pradeesh"
+        },
         "jobTitle": "Computer Science Student and Developer",
         "description": "First-year B.Tech Computer Science student at NCERC Pambady, Kerala, India, graduating in 2030. Started coding at 12 and builds across web, IoT and backend — ExamForge, Gas Guard, the NMHSS Thirunavaya school website and Orvaya. Currently looking for an internship.",
         "email": "mailto:pranavpradeesh09@gmail.com",
@@ -549,6 +555,14 @@
         <div class="panel__head">
           <span class="panel__index">02</span>
           <h2 class="panel__title reveal">LEARN<br /><span class="accent">BY</span><br />BUILDING</h2>
+          <figure class="portrait reveal">
+            <picture>
+              <source srcset="img/pranav-pradeesh.webp" type="image/webp" />
+              <img src="img/pranav-pradeesh.jpg" width="720" height="900"
+                   alt="Pranav Pradeesh, a first-year Computer Science student from Kerala, India"
+                   loading="lazy" decoding="async" />
+            </picture>
+          </figure>
         </div>
         <div class="panel__body">
           <p class="lede reveal">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. Got into coding at 12 and never stopped — IoT, web, and backend, mostly figured out as I go.</p>

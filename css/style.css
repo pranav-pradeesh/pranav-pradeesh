@@ -355,6 +355,21 @@ main { position: relative; z-index: 10; }
 }
 .panel__head--wide { margin-bottom: 70px; }
 
+/* --- portrait ---
+   Sits under the section title in the left column, which is the standard
+   editorial arrangement and needs no change to the grid. The backdrop is cut
+   out and feathered so the figure emerges from the page rather than sitting
+   in a bright rectangle, matching the particle portrait it morphs into. */
+.portrait {
+  margin-top: 36px;
+  width: min(320px, 100%);
+}
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .panel__body { display: flex; flex-direction: column; gap: 26px; position: relative; }
 .panel__body p { max-width: 56ch; line-height: 1.85; font-size: 0.92rem; color: var(--bone-dim); }
 .lede { color: var(--bone) !important; font-size: 1.08rem !important; }
@@ -662,6 +677,7 @@ main { position: relative; z-index: 10; }
   .accent, .panel__index, .stat__num, .skill-group h4, .faq__title, .project__tag { color: #000 !important; }
   .panel__body p, .project__desc, .skill-group li, .faq__a, .kicker,
   .hero-intro, .hero-sub, .stat__label, .footer, .contact-ghost { color: #222 !important; text-shadow: none !important; }
+  .portrait { max-width: 150pt; }
   .project { background: none !important; backdrop-filter: none !important; border: 1pt solid #999; }
   .projects { background: none !important; gap: 10pt; }
   .contact-link { background: none !important; color: #000 !important; border: 1pt solid #000; }
