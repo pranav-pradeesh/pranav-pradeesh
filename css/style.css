@@ -950,3 +950,39 @@ html.gl .page--services #scene { opacity: 1; }
 @media (max-width: 360px) {
   .chrome__nav { gap: 12px; }
 }
+
+/* ============ HOMEPAGE → SERVICES ============
+   The services page should be the first thing a visitor can act on. Three
+   cues, in descending weight: a filled acid button in the hero, the status
+   pill in the header (now a link with the starting price), and an acid
+   "Hire me" in the nav — the one nav item that leaves the page. The resume
+   sits beside the hero button as a quieter second path for recruiters. */
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 34px;
+  position: relative;
+}
+.hero-cta__primary { box-shadow: 0 0 40px rgba(200, 255, 0, 0.28); }
+.hero-cta__label strong { font-weight: 600; }
+.hero-cta .contact-ghost {
+  background: rgba(6, 8, 7, 0.6);
+  color: var(--bone);
+}
+.chrome__nav a.chrome__nav-hire { color: var(--acid); }
+.chrome__status--link {
+  text-decoration: none;
+  border: 1px solid rgba(200, 255, 0, 0.45);
+  padding: 8px 14px;
+  color: var(--bone);
+  transition: border-color 0.3s, color 0.3s;
+}
+.chrome__status--link:hover { border-color: var(--acid); color: var(--acid); }
+
+/* The hero is a full-height panel with the scroll hint pinned to its foot;
+   the new buttons need that space on short screens, so the hint gives way. */
+@media (max-height: 760px), (max-width: 860px) {
+  .panel--hero .scroll-hint { display: none; }
+}
