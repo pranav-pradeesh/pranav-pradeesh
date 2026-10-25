@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=14" />
+  <link rel="stylesheet" href="css/style.css?v=15" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -215,7 +215,7 @@
           "caption": "Pranav Pradeesh — student developer, Kerala, India."
         },
         "inLanguage": "en",
-        "dateModified": "2026-07-29",
+        "dateModified": "2026-10-25",
         "speakable": {
           "@type": "SpeakableSpecification",
           "cssSelector": [
@@ -456,7 +456,7 @@
             "name": "Is he available for work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer."
+              "text": "Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer. He also takes on freelance projects — websites, web apps and IoT prototypes — listed at pranavpradeesh.dev/services."
             }
           },
           {
@@ -522,12 +522,13 @@
     <nav class="chrome__nav">
       <a href="#about" data-magnetic>About</a>
       <a href="#projects" data-magnetic>Projects</a>
-      <a href="#skills" data-magnetic>Skills</a>
+      <a class="chrome__nav-optional" href="#skills" data-magnetic>Skills</a>
+      <a href="services" data-magnetic data-goatcounter-click="nav-services">Services</a>
       <a href="#contact" data-magnetic>Contact</a>
     </nav>
     <div class="chrome__status">
       <span class="pulse-dot"></span>
-      <span>OPEN TO INTERNSHIPS</span>
+      <span>OPEN TO INTERNSHIPS &amp; FREELANCE</span>
     </div>
   </header>
 
@@ -590,28 +591,28 @@
         <h2 class="panel__title reveal reveal--mask" data-distort><span>SELECTED<br /><span class="accent">WORK</span></span></h2>
       </div>
       <div class="projects">
-        <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener" aria-label="ExamForge — online exam and quiz platform for teachers and students. Source on GitHub.">
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener" data-goatcounter-click="project-examforge" aria-label="ExamForge — online exam and quiz platform for teachers and students. Source on GitHub.">
           <span class="project__tag">EDTECH</span>
           <h3 class="project__name">ExamForge</h3>
           <p class="project__desc">Online exam and quiz platform. Teachers create exams, students take them, results come out automatically — built to replace a real workflow.</p>
           <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
           <span class="project__num">P—01</span>
         </a>
-        <a class="project reveal" href="https://github.com/pranav-pradeesh/GAS-GUARD" target="_blank" rel="noopener" aria-label="Gas Guard — Arduino IoT gas leak detector. Source on GitHub.">
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/GAS-GUARD" target="_blank" rel="noopener" data-goatcounter-click="project-gas-guard" aria-label="Gas Guard — Arduino IoT gas leak detector. Source on GitHub.">
           <span class="project__tag">IOT</span>
           <h3 class="project__name">Gas Guard</h3>
           <p class="project__desc">Arduino with gas sensors that triggers an alert when it detects a leak. A practical safety tool, not a demo.</p>
           <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
           <span class="project__num">P—02</span>
         </a>
-        <a class="project reveal" href="https://github.com/pranav-pradeesh/nmhss-project" target="_blank" rel="noopener" aria-label="NMHSS Thirunavaya school website — live in production. Source on GitHub.">
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/nmhss-project" target="_blank" rel="noopener" data-goatcounter-click="project-nmhss-project" aria-label="NMHSS Thirunavaya school website — live in production. Source on GitHub.">
           <span class="project__tag">LIVE IN PRODUCTION</span>
           <h3 class="project__name">NMHSS Thirunavaya</h3>
           <p class="project__desc">The official website for my school. Actually live and actually being used — my first real users.</p>
           <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
           <span class="project__num">P—03</span>
         </a>
-        <a class="project reveal" href="https://github.com/pranav-pradeesh/Orvaya" target="_blank" rel="noopener" aria-label="Orvaya — responsive website built for a business client. Source on GitHub.">
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/Orvaya" target="_blank" rel="noopener" data-goatcounter-click="project-orvaya" aria-label="Orvaya — responsive website built for a business client. Source on GitHub.">
           <span class="project__tag">CLIENT WORK</span>
           <h3 class="project__name">Orvaya</h3>
           <p class="project__desc">Website built for a real business. Professional look, works properly on every screen size.</p>
@@ -654,20 +655,21 @@
       <span class="panel__index">05</span>
       <h2 class="contact-title reveal reveal--mask" data-distort><span>LET'S BUILD<br />SOMETHING <span class="accent">REAL</span></span></h2>
       <div class="contact-actions reveal">
-        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com" data-magnetic>
+        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com" data-magnetic data-goatcounter-click="contact-email">
           pranavpradeesh09@gmail.com
           <span class="contact-link__arrow">→</span>
         </a>
-        <a class="contact-ghost" href="https://github.com/pranav-pradeesh" target="_blank" rel="noopener" data-magnetic aria-label="Pranav Pradeesh on GitHub">
+        <a class="contact-ghost" href="https://github.com/pranav-pradeesh" target="_blank" rel="noopener" data-magnetic data-goatcounter-click="contact-github" aria-label="Pranav Pradeesh on GitHub">
           github.com/pranav-pradeesh
         </a>
-        <a class="contact-ghost" href="Pranav-Pradeesh-Resume.pdf" target="_blank" rel="noopener" data-magnetic aria-label="Download Pranav Pradeesh's resume as a PDF">
+        <a class="contact-ghost" href="Pranav-Pradeesh-Resume.pdf" target="_blank" rel="noopener" data-magnetic data-goatcounter-click="contact-resume" aria-label="Download Pranav Pradeesh's resume as a PDF">
           resume (pdf)
         </a>
-        <a class="contact-ghost" href="https://www.linkedin.com/in/pranav-pradeesh-9994a640b/" target="_blank" rel="noopener" data-magnetic aria-label="Pranav Pradeesh on LinkedIn">
+        <a class="contact-ghost" href="https://www.linkedin.com/in/pranav-pradeesh-9994a640b/" target="_blank" rel="noopener" data-magnetic data-goatcounter-click="contact-linkedin" aria-label="Pranav Pradeesh on LinkedIn">
           linkedin.com/in/pranav-pradeesh
         </a>
       </div>
+      <p class="contact-hire reveal">Need a website or web app built? <a href="services" data-goatcounter-click="contact-services">See my freelance services →</a></p>
       <section class="faq reveal" aria-labelledby="faq-title">
         <h3 class="faq__title" id="faq-title">Questions</h3>
         <dl class="faq__list">
@@ -681,7 +683,7 @@
           </div>
           <div class="faq__item">
             <dt class="faq__q">Is he available for work?</dt>
-            <dd class="faq__a">Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer.</dd>
+            <dd class="faq__a">Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer. He also takes on freelance projects — websites, web apps and IoT prototypes — listed at pranavpradeesh.dev/services.</dd>
           </div>
           <div class="faq__item">
             <dt class="faq__q">How long has he been coding?</dt>
@@ -706,5 +708,9 @@
   </main>
 
   <script type="module" src="js/main.js"></script>
+
+  <!-- Anonymous analytics (GoatCounter): page views, referrers, and clicks on
+       elements carrying data-goatcounter-click. No cookies, no personal data. -->
+  <script data-goatcounter="https://pranavpradeesh.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

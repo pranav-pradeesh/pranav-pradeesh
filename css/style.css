@@ -861,3 +861,50 @@ html.ready .panel--hero .reveal--mask.visible > span { transition-delay: var(--d
   }
   html { scroll-behavior: auto; }
 }
+
+/* ============ SERVICES PAGE ============
+   Same panels and cards as the portfolio, minus the particle field. With no
+   canvas behind the copy the scrims have nothing to protect against, but
+   they are harmless on solid black, so they are left alone. */
+.contact-actions--left { justify-content: flex-start; margin-top: 34px; }
+.service__proof {
+  margin-top: 18px;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone-mute);
+}
+.process {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+.footer__link {
+  color: var(--bone-dim);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer__link:hover { color: var(--acid); }
+
+/* Points at the services page from the portfolio's contact panel. */
+.contact-hire {
+  margin-top: 26px;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--bone-dim);
+  position: relative;
+  text-shadow: 0 1px 14px rgba(6, 8, 7, 0.9);
+}
+.contact-hire a { color: var(--acid); text-decoration: none; border-bottom: 1px solid rgba(200, 255, 0, 0.4); }
+.contact-hire a:hover { border-bottom-color: var(--acid); }
+
+/* Five links do not fit beside the logo on a phone and wrapped to a second
+   row. Skills is the one a visitor can most easily reach by scrolling. */
+@media (max-width: 520px) {
+  .chrome__nav-optional { display: none; }
+}
+/* "Services" is two letters longer than the "Skills" it replaced, which
+   tipped a 320px screen back into wrapping. */
+@media (max-width: 360px) {
+  .chrome__nav { gap: 12px; }
+}
