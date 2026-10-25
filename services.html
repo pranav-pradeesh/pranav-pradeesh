@@ -5,27 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============ CORE SEO ============ -->
-  <title>Freelance Web Developer in Kerala — Services · Pranav Pradeesh</title>
-  <meta name="description" content="Freelance websites, web apps and IoT prototypes from Pranav Pradeesh, a developer in Kerala, India. Fixed quotes, live in weeks, code you own." />
+  <title>Website Design in Kerala from ₹4,999 — Freelance Web Developer · Pranav Pradeesh</title>
+  <meta name="description" content="Freelance web developer in Kerala, India. Business websites from ₹4,999, web apps from ₹14,999, website fixes from ₹999. Fixed quotes, live in 1–2 weeks, code you own." />
   <link rel="canonical" href="https://pranavpradeesh.dev/services" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="Pranav Pradeesh" />
+  <meta name="keywords" content="freelance web developer Kerala, website design Kerala, website developer Malappuram, website developer Thrissur, affordable website India, small business website price, web app developer India, Arduino IoT prototype" />
   <meta name="theme-color" content="#060807" />
   <meta name="color-scheme" content="dark" />
+
+  <!-- ============ GEO ============ -->
+  <meta name="geo.region" content="IN-KL" />
+  <meta name="geo.placename" content="Kerala, India" />
+  <meta name="ICBM" content="10.8505, 76.2711" />
 
   <!-- ============ SOCIAL / OPEN GRAPH ============ -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Pranav Pradeesh" />
-  <meta property="og:title" content="Freelance Web Developer in Kerala — Pranav Pradeesh" />
-  <meta property="og:description" content="Websites for small businesses, web apps and IoT prototypes. Fixed quotes, code you own." />
+  <meta property="og:title" content="Freelance Web Developer in Kerala — Websites from ₹4,999" />
+  <meta property="og:description" content="Business websites from ₹4,999, web apps from ₹14,999, fixes from ₹999. Fixed quotes, code you own." />
   <meta property="og:url" content="https://pranavpradeesh.dev/services" />
   <meta property="og:image" content="https://pranavpradeesh.dev/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Freelance Web Developer in Kerala — Pranav Pradeesh" />
-  <meta name="twitter:description" content="Websites for small businesses, web apps and IoT prototypes. Fixed quotes, code you own." />
+  <meta name="twitter:title" content="Freelance Web Developer in Kerala — Websites from ₹4,999" />
+  <meta name="twitter:description" content="Business websites from ₹4,999, web apps from ₹14,999, fixes from ₹999. Fixed quotes, code you own." />
   <meta name="twitter:image" content="https://pranavpradeesh.dev/og-image.png" />
 
   <!-- ============ ICONS ============ -->
@@ -33,11 +39,13 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
+  <link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt — plain-text site summary" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=15" />
+  <link rel="stylesheet" href="css/style.css?v=16" />
 
   <style>
     /* Same critical rule as index.html, for the same reason. */
@@ -54,16 +62,40 @@
   </style>
 
   <script>
-    // No loader or particle engine on this page, so there is no curtain to
-    // wait for: opt into reveals and release the entrance straight away.
+    /* Same particle engine as the portfolio, but no loading screen: someone
+       arriving here to check a price should be able to read it immediately.
+       The copy shows at once and the field fades in behind it when its first
+       frame is painted. main.js reports milestones to window.__loader, so a
+       stub that only listens for that frame is all it needs. */
     document.documentElement.classList.add('js', 'ready');
-    // Same watchdog as index.html: if services.js never runs, show the copy.
+    window.__loader = {
+      step: function (name) {
+        if (name === 'frame') document.documentElement.classList.add('gl');
+      },
+      release: function () {},
+      fail: function () {}
+    };
+    // If the engine never arrives, drop back to the plain document.
     setTimeout(function () {
-      if (!window.__svcBooted) document.documentElement.classList.remove('js');
-    }, 3000);
+      if (!window.__obsBooted) document.documentElement.classList.remove('js');
+    }, 5000);
   </script>
 
-  <!-- ============ STRUCTURED DATA ============ -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs"
+      }
+    }
+  </script>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs" crossorigin />
+  <link rel="modulepreload" href="js/main.js" />
+
+  <!-- ============ STRUCTURED DATA ============
+       Prices here must match the visible cards and FAQ below. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -72,39 +104,155 @@
         "@type": "WebPage",
         "@id": "https://pranavpradeesh.dev/services#webpage",
         "url": "https://pranavpradeesh.dev/services",
-        "name": "Freelance Web Developer in Kerala — Services · Pranav Pradeesh",
+        "name": "Website Design in Kerala from ₹4,999 — Freelance Web Developer · Pranav Pradeesh",
+        "description": "Freelance websites, web apps, website fixes and IoT prototypes by Pranav Pradeesh, a developer in Kerala, India, with published starting prices.",
         "isPartOf": { "@id": "https://pranavpradeesh.dev/#website" },
         "about": { "@id": "https://pranavpradeesh.dev/services#service" },
-        "inLanguage": "en"
+        "breadcrumb": { "@id": "https://pranavpradeesh.dev/services#breadcrumb" },
+        "inLanguage": "en",
+        "dateModified": "2026-10-25",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".hero-intro", ".service__price", ".faq__a"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pranavpradeesh.dev/services#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Pranav Pradeesh", "item": "https://pranavpradeesh.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Freelance services", "item": "https://pranavpradeesh.dev/services" }
+        ]
       },
       {
         "@type": "ProfessionalService",
         "@id": "https://pranavpradeesh.dev/services#service",
         "name": "Pranav Pradeesh — Freelance Web & IoT Development",
+        "description": "Freelance web developer in Kerala, India building business websites, web apps and IoT prototypes for small businesses, schools and individuals.",
         "url": "https://pranavpradeesh.dev/services",
         "image": "https://pranavpradeesh.dev/og-image.png",
         "email": "pranavpradeesh09@gmail.com",
+        "priceRange": "₹999 – ₹50,000",
+        "currenciesAccepted": "INR",
+        "paymentAccepted": "UPI, Bank transfer",
         "founder": { "@id": "https://pranavpradeesh.dev/#pranav" },
-        "areaServed": [
-          { "@type": "AdministrativeArea", "name": "Kerala, India" },
-          { "@type": "Country", "name": "India" },
-          { "@type": "Place", "name": "Remote, worldwide" }
-        ],
         "address": {
           "@type": "PostalAddress",
           "addressRegion": "Kerala",
           "addressCountry": "IN"
         },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 10.8505,
+          "longitude": 76.2711
+        },
+        "areaServed": [
+          { "@type": "State", "name": "Kerala" },
+          { "@type": "City", "name": "Malappuram" },
+          { "@type": "City", "name": "Thrissur" },
+          { "@type": "City", "name": "Palakkad" },
+          { "@type": "City", "name": "Kozhikode" },
+          { "@type": "City", "name": "Kochi" },
+          { "@type": "Country", "name": "India" }
+        ],
+        "availableLanguage": ["English", "Malayalam"],
+        "knowsAbout": ["Website design", "Web development", "Responsive web design", "Search engine optimisation", "React", "Node.js", "MongoDB", "Arduino", "Internet of Things"],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Freelance services",
+          "name": "Freelance web and IoT services",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business websites", "description": "Fast, responsive websites for small businesses, schools and shops, live on your own domain." } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web apps and internal tools", "description": "Custom web applications such as booking systems, dashboards, quiz and exam platforms." } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website fixes and redesigns", "description": "Speed, mobile layout, SEO and content updates for an existing site." } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IoT prototypes", "description": "Arduino-based sensor and alert prototypes." } }
+            {
+              "@type": "Offer",
+              "url": "https://pranavpradeesh.dev/services#services",
+              "priceCurrency": "INR",
+              "price": "4999",
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 4999, "priceCurrency": "INR" },
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Business website",
+                "serviceType": "Website design and development",
+                "description": "Mobile-first website of up to 5 pages for a small business, school, clinic or shop, with contact form or WhatsApp button, on-page SEO and Google Business Profile setup. Live in 1–2 weeks."
+              }
+            },
+            {
+              "@type": "Offer",
+              "url": "https://pranavpradeesh.dev/services#services",
+              "priceCurrency": "INR",
+              "price": "14999",
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 14999, "priceCurrency": "INR" },
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Web app or internal tool",
+                "serviceType": "Custom web application development",
+                "description": "Custom web application such as a booking system, dashboard, admin panel or quiz and exam platform, built with React, Node.js and MongoDB."
+              }
+            },
+            {
+              "@type": "Offer",
+              "url": "https://pranavpradeesh.dev/services#services",
+              "priceCurrency": "INR",
+              "price": "999",
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 999, "priceCurrency": "INR" },
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Website fix or redesign",
+                "serviceType": "Website maintenance and redesign",
+                "description": "Fixes for an existing website: mobile layout, loading speed, broken pages, SEO basics and content updates."
+              }
+            },
+            {
+              "@type": "Offer",
+              "url": "https://pranavpradeesh.dev/services#services",
+              "priceCurrency": "INR",
+              "price": "2999",
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 2999, "priceCurrency": "INR" },
+              "itemOffered": {
+                "@type": "Service",
+                "name": "IoT prototype",
+                "serviceType": "Arduino prototype development",
+                "description": "Arduino-based sensor and alert prototype for a college project or proof of concept, wired, programmed and documented. Components billed at cost."
+              }
+            }
           ]
         }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pranavpradeesh.dev/services#faq",
+        "isPartOf": { "@id": "https://pranavpradeesh.dev/services#webpage" },
+        "inLanguage": "en",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a website cost in Kerala?",
+            "acceptedAnswer": { "@type": "Answer", "text": "With Pranav Pradeesh, a small business website starts at ₹4,999 for up to 5 pages, including mobile-friendly design, a contact form or WhatsApp button, on-page SEO and Google Business Profile setup. Web apps start at ₹14,999 and fixes to an existing site start at ₹999. Every project gets a fixed quote before work begins." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is included in the ₹4,999 website?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Up to 5 pages, design that works on phones, a contact form or WhatsApp button, basic SEO (titles, descriptions, structured data, sitemap), Google Business Profile setup, free hosting for static sites, and 30 days of bug fixes after launch. The domain name is extra, about ₹800–₹1,200 a year, registered in your name." }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there monthly fees?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Not for a standard business website. Static sites are hosted free, so the only recurring cost is the yearly domain renewal. Web apps that need a server or database may have a hosting cost, which is stated in the quote." }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does it take to build a website?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A simple business website is usually live within 1–2 weeks. Web apps take longer; the timeline comes with the quote." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Pranav Pradeesh work outside Kerala?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. He works with clients anywhere in India and abroad remotely, over email, calls and a live preview link. In Kerala he can also meet clients in person around Malappuram and Thrissur." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I own the website?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The domain is registered in your name and you receive the full source code. There is no lock-in." }
+          }
+        ]
       }
     ]
   }
@@ -113,9 +261,14 @@
 <body class="page--services">
   <a class="skip-link" href="#services">Skip to content</a>
 
+  <!-- ============ WEBGL CANVAS ============ -->
+  <canvas id="scene"></canvas>
+
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
   <div class="frame" aria-hidden="true"></div>
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
@@ -124,10 +277,10 @@
   <header class="chrome">
     <a class="chrome__logo" href="./" aria-label="Pranav Pradeesh — home">PP<span class="accent">.</span></a>
     <nav class="chrome__nav">
-      <a href="./#projects" data-goatcounter-click="services-nav-work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
+      <a href="./#projects" data-magnetic data-goatcounter-click="services-nav-work">Work</a>
+      <a href="#services" data-magnetic>Pricing</a>
+      <a href="#process" data-magnetic>Process</a>
+      <a href="#contact" data-magnetic>Contact</a>
     </nav>
     <div class="chrome__status">
       <span class="pulse-dot"></span>
@@ -135,69 +288,104 @@
     </div>
   </header>
 
+  <div class="section-indicator" id="sectionIndicator">
+    <span class="section-indicator__num" id="indicatorNum">01</span>
+    <span class="section-indicator__line"><span class="section-indicator__vel" id="velBar"></span></span>
+    <span class="section-indicator__total">04</span>
+  </div>
+
   <main>
 
     <!-- HERO -->
     <section class="panel panel--hero" id="top">
-      <p class="kicker reveal" style="--d:0.10s">FREELANCE — KERALA, INDIA · REMOTE WORLDWIDE</p>
-      <h1 class="hero-title">
-        <span class="hero-title__line reveal reveal--mask" style="--d:0.20s"><span>HIRE ME TO</span></span>
-        <span class="hero-title__line accent reveal reveal--mask" style="--d:0.32s"><span>BUILD IT.</span></span>
+      <p class="kicker reveal" style="--d:0.10s">FREELANCE WEB DEVELOPER — KERALA, INDIA · REMOTE WORLDWIDE</p>
+      <h1 class="hero-title" data-distort>
+        <span class="hero-title__line reveal reveal--mask" style="--d:0.20s"><span>WEBSITES FROM</span></span>
+        <span class="hero-title__line accent reveal reveal--mask" style="--d:0.32s"><span>₹4,999.</span></span>
       </h1>
-      <p class="hero-intro reveal" style="--d:0.48s">I build websites and web apps for small businesses, schools and people with an idea. I've already built my school's official website, which is live and in daily use, and a site for a business client. You get a fixed quote up front, regular previews while I build, and the full source code when it's done.</p>
+      <p class="hero-intro reveal" style="--d:0.48s">I build websites and web apps for small businesses, schools and people with an idea, in Kerala and anywhere online. I've already built my school's official website, which is live and in daily use, and a site for a business client. You get a fixed quote up front, previews while I build, no monthly fees for a standard site, and the full source code when it's done.</p>
       <div class="contact-actions contact-actions--left reveal" style="--d:0.60s">
-        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com?subject=Project%20enquiry%20from%20pranavpradeesh.dev" data-goatcounter-click="services-cta-hero-email">
-          Get a quote
+        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com?subject=Project%20enquiry%20from%20pranavpradeesh.dev" data-magnetic data-goatcounter-click="services-cta-hero-email">
+          Get a free quote
           <span class="contact-link__arrow">→</span>
         </a>
-        <a class="contact-ghost" href="#services">See what I do</a>
+        <a class="contact-ghost" href="#services" data-magnetic>See prices</a>
       </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- SERVICES + PRICES -->
     <section class="panel" id="services">
-      <div class="panel__head panel__head--wide">
+      <div class="panel__head panel__head--wide" data-parallax="0.04">
         <span class="panel__index">01</span>
-        <h2 class="panel__title reveal reveal--mask"><span>WHAT I<br /><span class="accent">BUILD</span></span></h2>
+        <h2 class="panel__title reveal reveal--mask" data-distort><span>SERVICES &amp;<br /><span class="accent">PRICES</span></span></h2>
       </div>
       <div class="projects">
         <article class="project reveal">
           <span class="project__tag">MOST REQUESTED</span>
-          <h3 class="project__name">Business websites</h3>
-          <p class="project__desc">A fast, mobile-first site for your shop, clinic, school or brand — on your own domain, findable on Google, with a contact form or WhatsApp button that actually reaches you.</p>
-          <p class="service__proof">Done before: NMHSS Thirunavaya, Orvaya</p>
+          <h3 class="project__name">Business website</h3>
+          <p class="service__price"><span class="service__from">from</span> ₹4,999</p>
+          <p class="project__desc">Up to 5 pages for your shop, clinic, school or brand. Works on every phone, findable on Google, with a contact form or WhatsApp button that actually reaches you.</p>
+          <ul class="service__list">
+            <li>On-page SEO + sitemap</li>
+            <li>Google Business Profile setup</li>
+            <li>Free hosting, no monthly fee</li>
+            <li>30 days of bug fixes</li>
+          </ul>
+          <p class="service__proof">Built before: NMHSS Thirunavaya, Orvaya</p>
           <span class="project__num">S—01</span>
         </article>
         <article class="project reveal">
           <span class="project__tag">CUSTOM</span>
-          <h3 class="project__name">Web apps &amp; tools</h3>
-          <p class="project__desc">Something that replaces a spreadsheet or a paper process — booking systems, dashboards, admin panels, quiz and exam platforms. Built with React, Node.js and MongoDB.</p>
-          <p class="service__proof">Done before: ExamForge</p>
+          <h3 class="project__name">Web app &amp; tools</h3>
+          <p class="service__price"><span class="service__from">from</span> ₹14,999</p>
+          <p class="project__desc">Something that replaces a spreadsheet or a paper process — booking systems, dashboards, admin panels, quiz and exam platforms.</p>
+          <ul class="service__list">
+            <li>Logins and user roles</li>
+            <li>Database + admin panel</li>
+            <li>React, Node.js, MongoDB</li>
+            <li>Deployed and documented</li>
+          </ul>
+          <p class="service__proof">Built before: ExamForge</p>
           <span class="project__num">S—02</span>
         </article>
         <article class="project reveal">
           <span class="project__tag">QUICK WINS</span>
           <h3 class="project__name">Fixes &amp; redesigns</h3>
-          <p class="project__desc">Already have a site that's slow, broken on phones or invisible on Google? I'll fix the layout, speed and SEO basics, or rebuild it if patching costs more than starting fresh.</p>
+          <p class="service__price"><span class="service__from">from</span> ₹999</p>
+          <p class="project__desc">Already have a site that's slow, broken on phones or invisible on Google? I fix it, or rebuild it if patching costs more than starting fresh.</p>
+          <ul class="service__list">
+            <li>Mobile layout fixes</li>
+            <li>Speed and Core Web Vitals</li>
+            <li>SEO basics</li>
+            <li>Content updates</li>
+          </ul>
           <p class="service__proof">Small jobs welcome</p>
           <span class="project__num">S—03</span>
         </article>
         <article class="project reveal">
           <span class="project__tag">HARDWARE</span>
-          <h3 class="project__name">IoT prototypes</h3>
+          <h3 class="project__name">IoT prototype</h3>
+          <p class="service__price"><span class="service__from">from</span> ₹2,999</p>
           <p class="project__desc">Arduino-based sensors and alerts for a college project, a demo or a proof of concept — wired, programmed and documented so you can explain how it works.</p>
-          <p class="service__proof">Done before: Gas Guard</p>
+          <ul class="service__list">
+            <li>Circuit + code</li>
+            <li>Working demo</li>
+            <li>Write-up you can present</li>
+            <li>Components billed at cost</li>
+          </ul>
+          <p class="service__proof">Built before: Gas Guard</p>
           <span class="project__num">S—04</span>
         </article>
       </div>
+      <p class="service__note reveal">Starting prices in Indian rupees. Every project gets a fixed written quote before any payment — the price only changes if you add to the scope. Domain name extra (about ₹800–₹1,200/year), registered in your name.</p>
     </section>
 
     <!-- PROCESS -->
     <section class="panel" id="process">
       <div class="panel__grid">
-        <div class="panel__head">
+        <div class="panel__head" data-parallax="0.06">
           <span class="panel__index">02</span>
-          <h2 class="panel__title reveal reveal--mask"><span>HOW IT<br /><span class="accent">WORKS</span></span></h2>
+          <h2 class="panel__title reveal reveal--mask" data-distort><span>HOW IT<br /><span class="accent">WORKS</span></span></h2>
         </div>
         <div class="panel__body process">
           <div class="skill-group reveal">
@@ -214,7 +402,7 @@
           </div>
           <div class="skill-group reveal">
             <h4>04 — LAUNCH</h4>
-            <ul><li>Live on your domain</li><li>You own all the code</li><li>Bug fixes after launch</li></ul>
+            <ul><li>Live on your domain</li><li>You own all the code</li><li>30 days of bug fixes</li></ul>
           </div>
         </div>
       </div>
@@ -223,16 +411,16 @@
     <!-- CONTACT -->
     <section class="panel panel--contact" id="contact">
       <span class="panel__index">03</span>
-      <h2 class="contact-title reveal reveal--mask"><span>GOT A PROJECT?<br />LET'S MAKE IT <span class="accent">REAL</span></span></h2>
+      <h2 class="contact-title reveal reveal--mask" data-distort><span>GOT A PROJECT?<br />LET'S MAKE IT <span class="accent">REAL</span></span></h2>
       <div class="contact-actions reveal">
-        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com?subject=Project%20enquiry%20from%20pranavpradeesh.dev" data-goatcounter-click="services-cta-footer-email">
+        <a class="contact-link" href="mailto:pranavpradeesh09@gmail.com?subject=Project%20enquiry%20from%20pranavpradeesh.dev" data-magnetic data-goatcounter-click="services-cta-footer-email">
           pranavpradeesh09@gmail.com
           <span class="contact-link__arrow">→</span>
         </a>
-        <a class="contact-ghost" href="https://www.linkedin.com/in/pranav-pradeesh-9994a640b/" target="_blank" rel="noopener" data-goatcounter-click="services-cta-linkedin" aria-label="Pranav Pradeesh on LinkedIn">
+        <a class="contact-ghost" href="https://www.linkedin.com/in/pranav-pradeesh-9994a640b/" target="_blank" rel="noopener" data-magnetic data-goatcounter-click="services-cta-linkedin" aria-label="Pranav Pradeesh on LinkedIn">
           message on linkedin
         </a>
-        <a class="contact-ghost" href="./#projects" data-goatcounter-click="services-cta-portfolio">
+        <a class="contact-ghost" href="./#projects" data-magnetic data-goatcounter-click="services-cta-portfolio">
           see my work
         </a>
       </div>
@@ -240,24 +428,32 @@
         <h3 class="faq__title" id="faq-title">Before you ask</h3>
         <dl class="faq__list">
           <div class="faq__item">
-            <dt class="faq__q">How much does a website cost?</dt>
-            <dd class="faq__a">It depends on the number of pages and features, so I quote each project separately after a short chat. The quote is fixed — it doesn't grow unless you add to the scope.</dd>
+            <dt class="faq__q">How much does a website cost in Kerala?</dt>
+            <dd class="faq__a">With me, a small business website starts at ₹4,999 for up to 5 pages, including mobile-friendly design, a contact form or WhatsApp button, on-page SEO and Google Business Profile setup. Web apps start at ₹14,999 and fixes to an existing site start at ₹999. Every project gets a fixed quote before work begins.</dd>
           </div>
           <div class="faq__item">
-            <dt class="faq__q">How long does it take?</dt>
-            <dd class="faq__a">A simple business website is usually live within one to two weeks. Web apps take longer; you'll get a timeline with the quote.</dd>
+            <dt class="faq__q">What is included in the ₹4,999 website?</dt>
+            <dd class="faq__a">Up to 5 pages, design that works on phones, a contact form or WhatsApp button, basic SEO (titles, descriptions, structured data, sitemap), Google Business Profile setup, free hosting for static sites, and 30 days of bug fixes after launch. The domain name is extra, about ₹800–₹1,200 a year, registered in your name.</dd>
+          </div>
+          <div class="faq__item">
+            <dt class="faq__q">Are there monthly fees?</dt>
+            <dd class="faq__a">Not for a standard business website. Static sites are hosted free, so the only recurring cost is the yearly domain renewal. Web apps that need a server or database may have a hosting cost, which I'll state in the quote.</dd>
+          </div>
+          <div class="faq__item">
+            <dt class="faq__q">How long does it take to build a website?</dt>
+            <dd class="faq__a">A simple business website is usually live within 1–2 weeks. Web apps take longer; you'll get a timeline with the quote.</dd>
           </div>
           <div class="faq__item">
             <dt class="faq__q">You're a student — will you have time?</dt>
             <dd class="faq__a">I take on a small number of projects at a time so each one gets proper attention, and I'll tell you honestly if I can't meet your deadline before you pay anything.</dd>
           </div>
           <div class="faq__item">
-            <dt class="faq__q">Do I own the website?</dt>
-            <dd class="faq__a">Yes. The domain is registered in your name and you get the full source code. You're never locked in to me.</dd>
+            <dt class="faq__q">Do you work outside Kerala?</dt>
+            <dd class="faq__a">Yes — anywhere in India or abroad, remotely over email, calls and a live preview link. In Kerala I can also meet in person around Malappuram and Thrissur.</dd>
           </div>
           <div class="faq__item">
-            <dt class="faq__q">Do you work outside Kerala?</dt>
-            <dd class="faq__a">Yes — everything can be done remotely over email, calls and a live preview link.</dd>
+            <dt class="faq__q">Do I own the website?</dt>
+            <dd class="faq__a">Yes. The domain is registered in your name and you get the full source code. There's no lock-in.</dd>
           </div>
         </dl>
       </section>
@@ -269,7 +465,7 @@
 
   </main>
 
-  <script src="js/services.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 
   <!-- Anonymous analytics (GoatCounter): page views, referrers, and clicks on
        elements carrying data-goatcounter-click. No cookies, no personal data. -->

@@ -378,7 +378,9 @@ if (!reducedMotion) {
   }, { passive: true });
 }
 
-document.querySelector('.chrome__logo')?.addEventListener('click', (e) => {
+// Only when the logo is an in-page anchor: on the services page it links home
+// and must navigate.
+document.querySelector('.chrome__logo[href^="#"]')?.addEventListener('click', (e) => {
   if (!lenis) return;
   e.preventDefault();
   lenis.scrollTo(0, { duration: 1.9, easing: (x) => 1 - Math.pow(1 - x, 4) });

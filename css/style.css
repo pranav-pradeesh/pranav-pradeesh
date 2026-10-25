@@ -863,9 +863,8 @@ html.ready .panel--hero .reveal--mask.visible > span { transition-delay: var(--d
 }
 
 /* ============ SERVICES PAGE ============
-   Same panels and cards as the portfolio, minus the particle field. With no
-   canvas behind the copy the scrims have nothing to protect against, but
-   they are harmless on solid black, so they are left alone. */
+   Same panels, cards and particle field as the portfolio, so the scrims and
+   text shadows above carry over unchanged. */
 .contact-actions--left { justify-content: flex-start; margin-top: 34px; }
 .service__proof {
   margin-top: 18px;
@@ -879,6 +878,49 @@ html.ready .panel--hero .reveal--mask.visible > span { transition-delay: var(--d
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 40px;
 }
+.service__price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--acid);
+  margin: 2px 0 16px;
+  letter-spacing: -0.01em;
+}
+.service__from {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bone-mute);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.service__list {
+  list-style: none;
+  margin-top: 18px;
+}
+.service__list li {
+  font-size: 0.76rem;
+  color: var(--bone-dim);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+.service__list li::before { content: '+ '; color: var(--acid); }
+.service__note {
+  margin-top: 28px;
+  max-width: 78ch;
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: var(--bone-dim);
+  position: relative;
+  text-shadow: 0 1px 14px rgba(6, 8, 7, 0.9);
+}
+/* No loading screen on this page, so the field fades in under copy that is
+   already readable instead of popping in when the engine finishes. */
+.page--services #scene { opacity: 0; transition: opacity 1.4s var(--ease-out); }
+html.gl .page--services #scene { opacity: 1; }
+
 .footer__link {
   color: var(--bone-dim);
   text-decoration: none;
