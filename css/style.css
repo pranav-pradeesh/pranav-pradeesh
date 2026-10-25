@@ -951,12 +951,10 @@ html.gl .page--services #scene { opacity: 1; }
   .chrome__nav { gap: 12px; }
 }
 
-/* ============ HOMEPAGE → SERVICES ============
-   The services page should be the first thing a visitor can act on. Three
-   cues, in descending weight: a filled acid button in the hero, the status
-   pill in the header (now a link with the starting price), and an acid
-   "Hire me" in the nav — the one nav item that leaves the page. The resume
-   sits beside the hero button as a quieter second path for recruiters. */
+/* ============ HERO CALLS TO ACTION ============
+   Internships come first: the filled acid button and the header pill both
+   open the resume. Freelance work is the outlined button beside it and a
+   plain nav link — findable, but never the first thing a recruiter reads. */
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
@@ -971,7 +969,6 @@ html.gl .page--services #scene { opacity: 1; }
   background: rgba(6, 8, 7, 0.6);
   color: var(--bone);
 }
-.chrome__nav a.chrome__nav-hire { color: var(--acid); }
 .chrome__status--link {
   text-decoration: none;
   border: 1px solid rgba(200, 255, 0, 0.45);
