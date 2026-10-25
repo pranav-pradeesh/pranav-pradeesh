@@ -16,7 +16,7 @@
 
 Student from Kerala. I got into coding at the age of 12 and since then I've been building projects across IoT, web, and backend — mostly by figuring things out as I go.
 
-Most of my projects started because I wanted to understand how something works. I build mostly through vibe coding — using AI tools to move fast, figure things out, and ship things I couldn't have built alone yet. Some are finished, some are still being figured out. I'm looking for an internship where I can actually contribute and learn properly from people who've been doing this longer than me.
+Most of my projects started because I wanted to understand how something works. I use AI tools to move faster, and I make sure I can explain every line I ship — how the data flows, where it can break, and why it's built that way. Some are finished, some are still being figured out. I'm looking for an internship where I can actually contribute and learn properly from people who've been doing this longer than me.
 
 ---
 
@@ -29,8 +29,13 @@ Most of my projects started because I wanted to understand how something works. 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![ESP8266](https://img.shields.io/badge/ESP8266-E7352C?style=flat-square&logo=espressif&logoColor=white)
 ![Arduino](https://img.shields.io/badge/Arduino-00979D?style=flat-square&logo=arduino&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
 
@@ -39,7 +44,9 @@ Most of my projects started because I wanted to understand how something works. 
 ## Projects
 
 ### 🎓 ExamForge
-An online exam and quiz platform. Teachers can create exams, students take them, results come out automatically. Built it because I wanted to see if I could make something that replaces a real workflow.
+A mock-exam platform for JEE and VIT: a full-screen timed test engine with auto-submit and per-question timing, AI post-exam analysis and explanations through the Groq API, and an admin panel for the question bank.
+
+**Stack:** Next.js 14 · TypeScript · Supabase (PostgreSQL, row-level security) · Groq
 
 🔗 [GitHub](https://github.com/pranav-pradeesh/ExamForge)
 
@@ -53,14 +60,18 @@ A website I built for a real business. Focused on making it look professional an
 ---
 
 ### 🛑 Gas Guard
-An IoT project — Arduino with gas sensors that triggers an alert when it detects a gas leak. Built it as a practical safety tool.
+An ESP8266 gas-leak detector in C++. Calibrates an MQ2 sensor at boot; on a leak it sounds a buzzer, opens a servo-driven vent and sends a Blynk alert. Serves its own web dashboard with an access-point fallback when Wi-Fi is down, and updates over the air.
+
+**Stack:** C++ · ESP8266 (NodeMCU) · MQ2 · Blynk
 
 🔗 [GitHub](https://github.com/pranav-pradeesh/GAS-GUARD)
 
 ---
 
 ### 🏫 NMHSS Thirunavaya — School Website
-The official website for my school. Actually live and being used.
+The official website for my school, live and in daily use. Team of two: I built the frontend — the public pages and the admin screens staff use to publish news, events and gallery media — working with a backend developer on the Express API.
+
+**Stack:** React · TypeScript · Tailwind CSS · Vite
 
 🔗 [GitHub](https://github.com/pranav-pradeesh/nmhss-project)
 

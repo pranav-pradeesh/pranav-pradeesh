@@ -516,6 +516,14 @@ main { position: relative; z-index: 10; }
   letter-spacing: -0.01em;
 }
 .project__desc { font-size: 0.82rem; line-height: 1.75; color: var(--bone-dim); }
+/* The stack line answers the interviewer's first question before they ask it. */
+.project__stack {
+  margin-top: 14px;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
 .project__cta {
   display: inline-flex;
   align-items: center;
