@@ -10,7 +10,7 @@
   <link rel="canonical" href="https://pranavpradeesh.dev/" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="Pranav Pradeesh" />
-  <meta name="keywords" content="Pranav Pradeesh, student developer, Kerala, India, web development, IoT, backend, React, Node.js, Arduino, ExamForge, Gas Guard, software internship" />
+  <meta name="keywords" content="Pranav Pradeesh, student developer, Kerala, India, web development, IoT, backend, React, Next.js, Node.js, TypeScript, PostgreSQL, ESP8266, ExamForge, Gas Guard, software internship" />
   <meta name="theme-color" content="#060807" />
   <meta name="color-scheme" content="dark" />
 
@@ -55,7 +55,7 @@
   <!-- ?v= is a cache buster. Pages serves css/style.css with a long max-age,
        so a returning visitor can otherwise pair new HTML with an old
        stylesheet. Bump this whenever style.css changes. -->
-  <link rel="stylesheet" href="css/style.css?v=17" />
+  <link rel="stylesheet" href="css/style.css?v=19" />
 
   <style>
     /* Critical, inlined on purpose: .sr-only hides text that is set in the
@@ -153,10 +153,11 @@
         document.documentElement.classList.remove('js');
         window.__loader.fail('PARTICLE ENGINE UNAVAILABLE - SHOWING PAGE');
       }
-    }, 5000);
+    }, 3500);
 
-    // Hard ceiling: reveal the page even if the engine is still working.
-    setTimeout(function () { window.__loader.release(); }, 6000);
+    // Hard ceiling: reveal the page even if the engine is still working. A
+    // recruiter skimming portfolios gives a page a few seconds, not six.
+    setTimeout(function () { window.__loader.release(); }, 3500);
   </script>
 
   <script type="importmap">
@@ -191,7 +192,7 @@
         "publisher": {
           "@id": "https://pranavpradeesh.dev/#pranav"
         },
-        "keywords": "student developer, web development, IoT, backend development, React, Node.js, Arduino, Kerala, India, software internship"
+        "keywords": "student developer, web development, IoT, backend development, React, Next.js, Node.js, TypeScript, PostgreSQL, ESP8266, Kerala, India, software internship"
       },
       {
         "@type": "ProfilePage",
@@ -225,7 +226,7 @@
             ".hero-sub"
           ]
         },
-        "keywords": "Pranav Pradeesh, student developer Kerala, web developer India, IoT developer, backend developer, React, Node.js, Arduino, ExamForge, Gas Guard, internship"
+        "keywords": "Pranav Pradeesh, student developer Kerala, web developer India, IoT developer, backend developer, React, Next.js, TypeScript, PostgreSQL, ESP8266, ExamForge, Gas Guard, internship"
       },
       {
         "@type": "Person",
@@ -287,9 +288,15 @@
           "HTML",
           "CSS",
           "React",
+          "Next.js",
           "Node.js",
+          "Express",
+          "PostgreSQL",
+          "Supabase",
           "MongoDB",
+          "Tailwind CSS",
           "Three.js",
+          "ESP8266",
           "Arduino",
           "Sensors and actuators",
           "Linux",
@@ -304,7 +311,7 @@
           "@type": "Occupation",
           "name": "Software Developer",
           "occupationalCategory": "Software development — web, IoT and backend",
-          "skills": "Web development, backend development, Internet of Things, React, Node.js, MongoDB, Three.js, Arduino, C++, Python, JavaScript, TypeScript, Linux, Git",
+          "skills": "Web development, backend development, Internet of Things, React, Next.js, Node.js, Express, PostgreSQL, Supabase, MongoDB, Tailwind CSS, Three.js, ESP8266, Arduino, C++, Python, JavaScript, TypeScript, Linux, Git",
           "occupationLocation": {
             "@type": "AdministrativeArea",
             "name": "Kerala, India"
@@ -370,12 +377,13 @@
               "@type": "SoftwareSourceCode",
               "name": "ExamForge",
               "applicationCategory": "EducationalApplication",
-              "description": "Online exam and quiz platform. Teachers create exams, students take them, results are generated automatically.",
+              "description": "JEE and VIT mock-exam platform: a timed computer-based test engine, AI post-exam analysis and question explanations through the Groq API, and an admin panel for the question bank. Next.js 14, TypeScript, Supabase (PostgreSQL with row-level security).",
+              "programmingLanguage": "TypeScript",
               "codeRepository": "https://github.com/pranav-pradeesh/ExamForge",
               "author": {
                 "@id": "https://pranavpradeesh.dev/#pranav"
               },
-              "keywords": "online exam platform, quiz software, edtech, web application, teachers, students, automated results",
+              "keywords": "mock exam platform, computer-based test, edtech, Next.js, TypeScript, Supabase, PostgreSQL, Groq, LLM, JEE, VIT",
               "inLanguage": "en"
             }
           },
@@ -385,13 +393,13 @@
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "Gas Guard",
-              "description": "Arduino-based IoT gas leak detector that raises an alert when its sensors detect a leak.",
+              "description": "ESP8266 gas-leak detector: calibrates an MQ2 sensor at boot, then on a leak sounds a buzzer, opens a servo-driven vent and sends a Blynk alert. Serves a local web dashboard with an access-point fallback when Wi-Fi is down, and supports over-the-air updates.",
               "programmingLanguage": "C++",
               "codeRepository": "https://github.com/pranav-pradeesh/GAS-GUARD",
               "author": {
                 "@id": "https://pranavpradeesh.dev/#pranav"
               },
-              "keywords": "IoT, Arduino, gas leak detection, gas sensor, embedded systems, safety device, C++",
+              "keywords": "IoT, ESP8266, NodeMCU, MQ2 gas sensor, Blynk, embedded web server, OTA updates, C++, safety device",
               "inLanguage": "en"
             }
           },
@@ -401,7 +409,7 @@
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "NMHSS Thirunavaya school website",
-              "description": "Official website for NMHSS Thirunavaya, live and in production use.",
+              "description": "Official website for NMHSS Thirunavaya, live and in production use. Pranav built the frontend (React, TypeScript, Tailwind CSS), working with a backend developer on the Express API.",
               "codeRepository": "https://github.com/pranav-pradeesh/nmhss-project",
               "author": {
                 "@id": "https://pranavpradeesh.dev/#pranav"
@@ -440,7 +448,7 @@
             "name": "What does Pranav Pradeesh build?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Web, IoT and backend projects. ExamForge, an online exam and quiz platform; Gas Guard, an Arduino gas-leak detector; the NMHSS Thirunavaya school website, live in production; and Orvaya, a site for a business client."
+              "text": "Web, IoT and backend projects. ExamForge, a JEE and VIT mock-exam platform with AI feedback (Next.js, TypeScript, Supabase); Gas Guard, an ESP8266 gas-leak detector with a local web dashboard; the frontend of the NMHSS Thirunavaya school website, live in production; and Orvaya, a site for a business client."
             }
           },
           {
@@ -448,7 +456,7 @@
             "name": "What technologies does he use?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "C++, Python, JavaScript and TypeScript. React, Node.js, MongoDB and Three.js on the web. Arduino, sensors, Linux and Git for IoT and systems work."
+              "text": "C++, Python, JavaScript and TypeScript. On the web: React, Next.js, Node.js and Express, PostgreSQL through Supabase, MongoDB, Tailwind CSS and Three.js. For IoT: ESP8266 and Arduino, sensors, Blynk, Linux and Git."
             }
           },
           {
@@ -456,7 +464,7 @@
             "name": "Is he available for work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer. He also takes on freelance projects — business websites from ₹4,999, web apps from ₹14,999 and website fixes from ₹999 — listed at pranavpradeesh.dev/services."
+              "text": "Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer. He also takes on small freelance web projects, listed at pranavpradeesh.dev/services."
             }
           },
           {
@@ -523,12 +531,12 @@
       <a href="#about" data-magnetic>About</a>
       <a href="#projects" data-magnetic>Projects</a>
       <a class="chrome__nav-optional" href="#skills" data-magnetic>Skills</a>
-      <a class="chrome__nav-hire" href="services" data-magnetic data-goatcounter-click="nav-services">Hire me</a>
+      <a href="services" data-magnetic data-goatcounter-click="nav-services">Services</a>
       <a href="#contact" data-magnetic>Contact</a>
     </nav>
-    <a class="chrome__status chrome__status--link" href="services" data-goatcounter-click="chrome-status-services">
+    <a class="chrome__status chrome__status--link" href="Pranav-Pradeesh-Resume.pdf" target="_blank" rel="noopener" data-goatcounter-click="chrome-status-resume" aria-label="Open to internships — view Pranav Pradeesh's resume (PDF)">
       <span class="pulse-dot"></span>
-      <span>AVAILABLE FOR FREELANCE · FROM ₹4,999</span>
+      <span>OPEN TO INTERNSHIPS</span>
     </a>
   </header>
 
@@ -548,15 +556,15 @@
         <span class="hero-title__line reveal reveal--mask" style="--d:0.30s"><span>PRANAV</span></span>
         <span class="hero-title__line accent reveal reveal--mask" style="--d:0.44s"><span>PRADEESH.</span></span>
       </h1>
-      <p class="hero-intro reveal" style="--d:0.66s">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. I build across web, IoT and backend — an online exam platform, an Arduino gas-leak detector, and my school's website, which is live and in daily use. Started at 12, still learning by building.</p>
-      <p class="hero-sub reveal" style="--d:0.78s">Taking freelance projects · Open to internships — Web · IoT · Backend</p>
+      <p class="hero-intro reveal" style="--d:0.66s">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. I build across web, IoT and backend — a mock-exam platform with AI feedback in Next.js and Postgres, an ESP8266 gas-leak detector, and the frontend of my school's website, which is live and in daily use. Started at 12, still learning by building.</p>
+      <p class="hero-sub reveal" style="--d:0.78s">Open to internships — Web · IoT · Backend</p>
       <div class="hero-cta reveal" style="--d:0.88s">
-        <a class="contact-link hero-cta__primary" href="services" data-magnetic data-goatcounter-click="hero-cta-services">
-          <span class="hero-cta__label">Need a website? <strong>From ₹4,999</strong></span>
+        <a class="contact-link hero-cta__primary" href="Pranav-Pradeesh-Resume.pdf" target="_blank" rel="noopener" data-magnetic data-goatcounter-click="hero-cta-resume" aria-label="View Pranav Pradeesh's resume (PDF)">
+          <span class="hero-cta__label">Hiring an intern? <strong>View my resume</strong></span>
           <span class="contact-link__arrow">→</span>
         </a>
-        <a class="contact-ghost" href="Pranav-Pradeesh-Resume.pdf" target="_blank" rel="noopener" data-magnetic data-goatcounter-click="hero-cta-resume" aria-label="Download Pranav Pradeesh's resume as a PDF">
-          Hiring an intern? Resume (pdf)
+        <a class="contact-ghost" href="services" data-magnetic data-goatcounter-click="hero-cta-services">
+          Freelance: websites from ₹4,999
         </a>
       </div>
       <div class="scroll-hint reveal" style="--d:1.0s">
@@ -582,7 +590,7 @@
         </div>
         <div class="panel__body">
           <p class="lede reveal">First-year B.Tech Computer Science student at NCERC Pambady, Kerala. Got into coding at 12 and never stopped — IoT, web, and backend, mostly figured out as I go.</p>
-          <p class="reveal">Most of my projects started because I wanted to understand how something works. I build fast with AI tools — shipping things I couldn't have built alone yet, then digging in to understand why they work. Some projects are finished, some are still being figured out.</p>
+          <p class="reveal">Most of my projects started because I wanted to understand how something works. I use AI tools to move faster, and I make sure I can explain every line I ship — how the data flows, where it can break, and why it's built that way. Some projects are finished, some are still being figured out.</p>
           <p class="reveal">Right now I'm looking for an internship where I can actually contribute and learn from people who've been doing this longer than me.</p>
           <div class="stat-row reveal">
             <div class="stat"><span class="stat__num" data-count="12">0</span><span class="stat__label">AGE I STARTED</span></div>
@@ -600,24 +608,27 @@
         <h2 class="panel__title reveal reveal--mask" data-distort><span>SELECTED<br /><span class="accent">WORK</span></span></h2>
       </div>
       <div class="projects">
-        <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener" data-goatcounter-click="project-examforge" aria-label="ExamForge — online exam and quiz platform for teachers and students. Source on GitHub.">
-          <span class="project__tag">EDTECH</span>
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/ExamForge" target="_blank" rel="noopener" data-goatcounter-click="project-examforge" aria-label="ExamForge — JEE and VIT mock-exam platform with AI feedback. Source on GitHub.">
+          <span class="project__tag">FULL-STACK · AI</span>
           <h3 class="project__name">ExamForge</h3>
-          <p class="project__desc">Online exam and quiz platform. Teachers create exams, students take them, results come out automatically — built to replace a real workflow.</p>
+          <p class="project__desc">Mock-exam platform for JEE and VIT. A full-screen timed test engine with a question palette, flagging, per-question timing and auto-submit; AI post-exam analysis and explanations through the Groq API; and an admin panel for the question bank.</p>
+          <p class="project__stack">Next.js 14 · TypeScript · Supabase (Postgres, RLS) · Groq</p>
           <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
           <span class="project__num">P—01</span>
         </a>
-        <a class="project reveal" href="https://github.com/pranav-pradeesh/GAS-GUARD" target="_blank" rel="noopener" data-goatcounter-click="project-gas-guard" aria-label="Gas Guard — Arduino IoT gas leak detector. Source on GitHub.">
-          <span class="project__tag">IOT</span>
+        <a class="project reveal" href="https://github.com/pranav-pradeesh/GAS-GUARD" target="_blank" rel="noopener" data-goatcounter-click="project-gas-guard" aria-label="Gas Guard — ESP8266 IoT gas leak detector. Source on GitHub.">
+          <span class="project__tag">IOT · EMBEDDED</span>
           <h3 class="project__name">Gas Guard</h3>
-          <p class="project__desc">Arduino with gas sensors that triggers an alert when it detects a leak. A practical safety tool, not a demo.</p>
+          <p class="project__desc">Calibrates an MQ2 gas sensor at boot, then on a leak sounds a buzzer, opens a servo-driven vent and pushes a Blynk alert. Serves its own web dashboard, falls back to an access point when Wi-Fi is down, and updates over the air.</p>
+          <p class="project__stack">C++ · ESP8266 (NodeMCU) · MQ2 · Blynk</p>
           <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
           <span class="project__num">P—02</span>
         </a>
         <a class="project reveal" href="https://github.com/pranav-pradeesh/nmhss-project" target="_blank" rel="noopener" data-goatcounter-click="project-nmhss-project" aria-label="NMHSS Thirunavaya school website — live in production. Source on GitHub.">
-          <span class="project__tag">LIVE IN PRODUCTION</span>
+          <span class="project__tag">LIVE IN PRODUCTION · TEAM OF 2</span>
           <h3 class="project__name">NMHSS Thirunavaya</h3>
-          <p class="project__desc">The official website for my school. Actually live and actually being used — my first real users.</p>
+          <p class="project__desc">The official website for my school, live and in daily use. I built the frontend — the public pages and the admin screens staff use to publish news, events and gallery media — working with a backend developer on the Express API.</p>
+          <p class="project__stack">React · TypeScript · Tailwind CSS · Vite</p>
           <span class="project__cta">VIEW REPO <span class="project__arrow">→</span></span>
           <span class="project__num">P—03</span>
         </a>
@@ -645,15 +656,15 @@
           </div>
           <div class="skill-group reveal">
             <h4>WEB</h4>
-            <ul><li>React</li><li>Node.js</li><li>MongoDB</li><li>Three.js</li></ul>
+            <ul><li>React / Next.js</li><li>Node.js / Express</li><li>PostgreSQL (Supabase)</li><li>MongoDB</li><li>Tailwind CSS</li><li>Three.js</li></ul>
           </div>
           <div class="skill-group reveal">
             <h4>IOT / SYSTEMS</h4>
-            <ul><li>Arduino</li><li>Sensors &amp; Actuators</li><li>Linux</li><li>Git</li></ul>
+            <ul><li>ESP8266 / Arduino</li><li>Sensors &amp; Actuators</li><li>Blynk IoT</li><li>Linux</li><li>Git</li></ul>
           </div>
           <div class="skill-group reveal">
             <h4>HOW I WORK</h4>
-            <ul><li>AI-assisted development</li><li>Rapid prototyping</li><li>Shipping &gt; perfect</li><li>Reading docs at 2am</li></ul>
+            <ul><li>AI-assisted development</li><li>Rapid prototyping</li><li>Version control with Git</li><li>Learning from the docs</li></ul>
           </div>
         </div>
       </div>
@@ -684,15 +695,15 @@
         <dl class="faq__list">
           <div class="faq__item">
             <dt class="faq__q">What does Pranav Pradeesh build?</dt>
-            <dd class="faq__a">Web, IoT and backend projects. ExamForge, an online exam and quiz platform; Gas Guard, an Arduino gas-leak detector; the NMHSS Thirunavaya school website, live in production; and Orvaya, a site for a business client.</dd>
+            <dd class="faq__a">Web, IoT and backend projects. ExamForge, a JEE and VIT mock-exam platform with AI feedback (Next.js, TypeScript, Supabase); Gas Guard, an ESP8266 gas-leak detector with a local web dashboard; the frontend of the NMHSS Thirunavaya school website, live in production; and Orvaya, a site for a business client.</dd>
           </div>
           <div class="faq__item">
             <dt class="faq__q">What technologies does he use?</dt>
-            <dd class="faq__a">C++, Python, JavaScript and TypeScript. React, Node.js, MongoDB and Three.js on the web. Arduino, sensors, Linux and Git for IoT and systems work.</dd>
+            <dd class="faq__a">C++, Python, JavaScript and TypeScript. On the web: React, Next.js, Node.js and Express, PostgreSQL through Supabase, MongoDB, Tailwind CSS and Three.js. For IoT: ESP8266 and Arduino, sensors, Blynk, Linux and Git.</dd>
           </div>
           <div class="faq__item">
             <dt class="faq__q">Is he available for work?</dt>
-            <dd class="faq__a">Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer. He also takes on freelance projects — business websites from ₹4,999, web apps from ₹14,999 and website fixes from ₹999 — listed at pranavpradeesh.dev/services.</dd>
+            <dd class="faq__a">Yes. He is looking for an internship in web development, IoT or backend, where he can contribute real work and learn from engineers who have been doing this longer. He also takes on small freelance web projects, listed at pranavpradeesh.dev/services.</dd>
           </div>
           <div class="faq__item">
             <dt class="faq__q">How long has he been coding?</dt>
